@@ -1,4 +1,4 @@
-# tomograms
+# tomogram_datasets
 In the BYU Biophysics research group, 
 we spend much of our time working with 3-dimensional images of bacteria called tomograms. 
 Researchers have spent a lot of time looking for structures in these tomograms, and save their findings in annotation files. 
@@ -12,4 +12,4 @@ pip install git+https://github.com/mward19/tomograms.git
 ```
 
 ## Documentation
-Read the documentation at [mward19.github.io/tomograms](https://mward19.github.io/tomograms/).
+Read the documentation at [mward19.github.io/tomograms](https://byu-biophysics.github.io/tomogram_datasets/).
