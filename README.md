@@ -12,4 +12,4 @@ pip install git+https://github.com/mward19/tomograms.git
 ```
 
 ## Documentation
-Read the documentation at [mward19.github.io/tomograms](https://byu-biophysics.github.io/tomogram_datasets/).
+Read the documentation at [byu-biophysics.github.io/tomogram-datasets](https://byu-biophysics.github.io/tomogram-datasets/).
