@@ -2,7 +2,7 @@ import pytest
 
 import numpy as np
 
-import tomograms
+import tomogram_datasets
 
 # Random number generator
 gen = np.random.default_rng()
@@ -22,17 +22,17 @@ def sample_tomo(request):
 
     data = gen.random(size=(50, 100, 200))
     annotations = [
-        tomograms.Annotation(
+        tomogram_datasets.Annotation(
             [i * np.array([1, 2, 3])], 
             str(i)
         ) 
         for i in range(n_annotations)
     ]
-    return tomograms.Tomogram(data, annotations)
+    return tomogram_datasets.Tomogram(data, annotations)
 
 def test_add_annotation(sample_tomo):
     n_anns = len(sample_tomo.annotations)
-    sample_tomo.add_annotation(tomograms.Annotation(np.array([0, 1, 2]), "addition"))
+    sample_tomo.add_annotation(tomogram_datasets.Annotation(np.array([0, 1, 2]), "addition"))
     assert n_anns + 1 == len(sample_tomo.annotations)
 
 def test_annotation_points(sample_tomo):
@@ -53,13 +53,13 @@ def test_annotation_points(sample_tomo):
 def test_mrc_to_np():
     file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
     # TODO: Portal says it's 318x319x109. Why 318 319 switch?
-    array_1 = tomograms.TomogramFile.mrc_to_np(file_1)
+    array_1 = tomogram_datasets.TomogramFile.mrc_to_np(file_1)
     assert isinstance(array_1, np.ndarray)
     assert np.allclose(array_1.shape, (109, 319, 318))
 
 def test_process():
     file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
-    tomo = tomograms.TomogramFile(file_1)
+    tomo = tomogram_datasets.TomogramFile(file_1)
     
     # Alter some data to ensure that the processing does something
     tomo.data[2, 3, 4] = -3
@@ -72,7 +72,7 @@ def test_process():
 
 def test_reload():
     file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
-    tomo = tomograms.TomogramFile(file_1)
+    tomo = tomogram_datasets.TomogramFile(file_1)
     
     # Alter some data to ensure that the processing does something
     tomo.data[2, 3, 4] = -3
