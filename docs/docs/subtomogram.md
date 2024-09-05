@@ -1,1 +1,1 @@
-::: tomograms.subtomogram
+::: tomogram_datasets.subtomogram

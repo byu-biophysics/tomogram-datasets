@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Subtomogram - tomograms</title>
+    <title>Subtomogram - tomogram_datasets</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> tomograms
+          <a href=".." class="icon icon-home"> tomogram_datasets
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -41,7 +41,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">tomograms</a>
+                <li class="toctree-l1"><a class="reference internal" href="..">tomogram_datasets</a>
                 </li>
               </ul>
               <ul>
@@ -69,7 +69,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">tomograms</a>
+          <a href="..">tomogram_datasets</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -78,7 +78,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Subtomogram</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/mward19/tomograms/edit/master/docs/subtomogram.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/byu-biophysics/tomogram-datasets/edit/master/docs/subtomogram.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -90,7 +90,7 @@
 
 
 
-<a id="tomograms.subtomogram"></a>
+<a id="tomogram_datasets.subtomogram"></a>
     <div class="doc doc-contents first">
 
 
@@ -108,7 +108,7 @@
 
 
 
-<h2 id="tomograms.subtomogram.Subtomogram" class="doc doc-heading">
+<h2 id="tomogram_datasets.subtomogram.Subtomogram" class="doc doc-heading">
             <code>Subtomogram</code>
 
 
@@ -117,10 +117,10 @@
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="tomograms.tomogram.Tomogram" href="../tomogram/#tomograms.tomogram.Tomogram">Tomogram</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="tomogram_datasets.tomogram.Tomogram" href="../tomogram/#tomogram_datasets.tomogram.Tomogram">Tomogram</a></code></p>
 
 
-      <p>A class representing a subtomogram extracted from a parent tomogram.</p>
+        <p>A class representing a subtomogram extracted from a parent tomogram.</p>
 
 
 <table class="field-list">
@@ -135,7 +135,7 @@
         <ul class="first simple">
             <li>
               <b><code>parent_tomogram</code></b>
-                  (<code><a class="autorefs autorefs-internal" title="tomograms.tomogram.Tomogram" href="../tomogram/#tomograms.tomogram.Tomogram">Tomogram</a></code>)
+                  (<code><a class="autorefs autorefs-internal" title="tomogram_datasets.tomogram.Tomogram" href="../tomogram/#tomogram_datasets.tomogram.Tomogram">Tomogram</a></code>)
               –
               <div class="doc-md-description">
                 <p>The tomogram from which this subtomogram was</p>
@@ -171,7 +171,7 @@
   </tbody>
 </table>
               <details class="quote">
-                <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+                <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
@@ -268,7 +268,7 @@
             <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">parent_annotation</span><span class="o">.</span><span class="n">points</span><span class="p">:</span>
                 <span class="n">new_point</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">lower_bounds</span>
                 <span class="c1"># Check if new_point is even in the new tomogram</span>
-                <span class="k">if</span> <span class="n">in_bounds</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">_in_bounds</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
                     <span class="n">new_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_point</span><span class="p">)</span>
                 <span class="c1"># Otherwise continue</span>
             <span class="c1"># Add the annotation only if there are points in it</span>
@@ -307,7 +307,7 @@
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.subtomogram.Subtomogram.__init__" class="doc doc-heading">
+<h3 id="tomogram_datasets.subtomogram.Subtomogram.__init__" class="doc doc-heading">
             <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">parent_tomogram</span><span class="p">,</span> <span class="n">lower_bounds</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span></code>
 
 </h3>
@@ -315,7 +315,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Initializes a Subtomogram instance.</p>
+        <p>Initializes a Subtomogram instance.</p>
 
 
 <table class="field-list">
@@ -330,7 +330,7 @@
         <ul class="first simple">
             <li>
               <b><code>parent_tomogram</code></b>
-                  (<code><a class="autorefs autorefs-internal" title="tomograms.tomogram.Tomogram" href="../tomogram/#tomograms.tomogram.Tomogram">Tomogram</a></code>)
+                  (<code><a class="autorefs autorefs-internal" title="tomogram_datasets.tomogram.Tomogram" href="../tomogram/#tomogram_datasets.tomogram.Tomogram">Tomogram</a></code>)
               –
               <div class="doc-md-description">
                 <p>The parent tomogram.</p>
@@ -358,7 +358,7 @@
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
@@ -423,7 +423,7 @@
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">parent_annotation</span><span class="o">.</span><span class="n">points</span><span class="p">:</span>
             <span class="n">new_point</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">lower_bounds</span>
             <span class="c1"># Check if new_point is even in the new tomogram</span>
-            <span class="k">if</span> <span class="n">in_bounds</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_in_bounds</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
                 <span class="n">new_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_point</span><span class="p">)</span>
             <span class="c1"># Otherwise continue</span>
         <span class="c1"># Add the annotation only if there are points in it</span>
@@ -462,7 +462,7 @@
 
 
 
-<h2 id="tomograms.subtomogram.SubtomogramGenerator" class="doc doc-heading">
+<h2 id="tomogram_datasets.subtomogram.SubtomogramGenerator" class="doc doc-heading">
             <code>SubtomogramGenerator</code>
 
 
@@ -472,7 +472,7 @@
     <div class="doc doc-contents ">
 
 
-      <p>A class for generating subtomograms from a parent tomogram.</p>
+        <p>A class for generating subtomograms from a parent tomogram.</p>
 
 
 <table class="field-list">
@@ -487,7 +487,7 @@
         <ul class="first simple">
             <li>
               <b><code>tomogram</code></b>
-                  (<code><a class="autorefs autorefs-internal" title="tomograms.tomogram.Tomogram" href="../tomogram/#tomograms.tomogram.Tomogram">Tomogram</a></code>)
+                  (<code><a class="autorefs autorefs-internal" title="tomogram_datasets.tomogram.Tomogram" href="../tomogram/#tomogram_datasets.tomogram.Tomogram">Tomogram</a></code>)
               –
               <div class="doc-md-description">
                 <p>The parent tomogram to sample from.</p>
@@ -495,7 +495,7 @@
             </li>
             <li>
               <b><code>annotations</code></b>
-                  (<code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="tomograms.annotation.Annotation" href="../annotation/#tomograms.annotation.Annotation">Annotation</a>]</code>)
+                  (<code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="tomogram_datasets.annotation.Annotation" href="../annotation/#tomogram_datasets.annotation.Annotation">Annotation</a>]</code>)
               –
               <div class="doc-md-description">
                 <p>The annotations from the parent</p>
@@ -531,7 +531,7 @@
   </tbody>
 </table>
               <details class="quote">
-                <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+                <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
 <span class="normal"> 87</span>
 <span class="normal"> 88</span>
@@ -765,7 +765,7 @@
             <span class="n">contains_annotation</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomogram</span><span class="o">.</span><span class="n">annotation_points</span><span class="p">():</span>
                 <span class="n">new_point</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">lower_bounds</span>
-                <span class="k">if</span> <span class="n">in_bounds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vol_shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">_in_bounds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vol_shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
                     <span class="n">contains_annotation</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">break</span>
 
@@ -803,7 +803,7 @@
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.subtomogram.SubtomogramGenerator.__init__" class="doc doc-heading">
+<h3 id="tomogram_datasets.subtomogram.SubtomogramGenerator.__init__" class="doc doc-heading">
             <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">tomogram</span><span class="p">)</span></code>
 
 </h3>
@@ -811,7 +811,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Initializes a SubtomogramGenerator instance.</p>
+        <p>Initializes a SubtomogramGenerator instance.</p>
 
 
 <table class="field-list">
@@ -826,7 +826,7 @@
         <ul class="first simple">
             <li>
               <b><code>tomogram</code></b>
-                  (<code><a class="autorefs autorefs-internal" title="tomograms.tomogram.Tomogram" href="../tomogram/#tomograms.tomogram.Tomogram">Tomogram</a></code>)
+                  (<code><a class="autorefs autorefs-internal" title="tomogram_datasets.tomogram.Tomogram" href="../tomogram/#tomogram_datasets.tomogram.Tomogram">Tomogram</a></code>)
               –
               <div class="doc-md-description">
                 <p>The parent tomogram to sample from.</p>
@@ -838,7 +838,7 @@
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
@@ -873,7 +873,7 @@
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.subtomogram.SubtomogramGenerator.find_annotation_points" class="doc doc-heading">
+<h3 id="tomogram_datasets.subtomogram.SubtomogramGenerator.find_annotation_points" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">find_annotation_points</span><span class="p">()</span></code>
 
 </h3>
@@ -881,7 +881,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Returns a list of points that are present in the annotations.</p>
+        <p>Returns a list of points that are present in the annotations.</p>
 
 
 <table class="field-list">
@@ -907,7 +907,7 @@
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
@@ -938,7 +938,7 @@
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.subtomogram.SubtomogramGenerator.negative_sample" class="doc doc-heading">
+<h3 id="tomogram_datasets.subtomogram.SubtomogramGenerator.negative_sample" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">negative_sample</span><span class="p">()</span></code>
 
 </h3>
@@ -946,7 +946,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Returns a random subtomogram that does not contain any points from the
+        <p>Returns a random subtomogram that does not contain any points from the
 annotations.</p>
 <p>This process continues until a valid subtomogram is found or the maximum
 iterations are reached.</p>
@@ -963,7 +963,7 @@ iterations are reached.</p>
       <td class="field-body">
         <ul class="first simple">
             <li>
-                  <code><a class="autorefs autorefs-internal" title="tomograms.subtomogram.Subtomogram" href="#tomograms.subtomogram.Subtomogram">Subtomogram</a></code>
+                  <code><a class="autorefs autorefs-internal" title="tomogram_datasets.subtomogram.Subtomogram" href="#tomogram_datasets.subtomogram.Subtomogram">Subtomogram</a></code>
               –
               <div class="doc-md-description">
                 <p>The newly created subtomogram.</p>
@@ -998,7 +998,7 @@ iterations are reached.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span>
@@ -1072,7 +1072,7 @@ iterations are reached.</p>
         <span class="n">contains_annotation</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomogram</span><span class="o">.</span><span class="n">annotation_points</span><span class="p">():</span>
             <span class="n">new_point</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">lower_bounds</span>
-            <span class="k">if</span> <span class="n">in_bounds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vol_shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_in_bounds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vol_shape</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
                 <span class="n">contains_annotation</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="k">break</span>
 
@@ -1089,7 +1089,7 @@ iterations are reached.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.subtomogram.SubtomogramGenerator.positive_sample" class="doc doc-heading">
+<h3 id="tomogram_datasets.subtomogram.SubtomogramGenerator.positive_sample" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">positive_sample</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -1097,7 +1097,7 @@ iterations are reached.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Returns a random subtomogram containing the specified point.</p>
+        <p>Returns a random subtomogram containing the specified point.</p>
 <p>The point will not be closer than <code>pads</code> voxels to the respective
 borders. If no point is given, a random annotation point from
 self.tomogram's annotations is selected.</p>
@@ -1140,7 +1140,7 @@ self.tomogram's annotations is selected.</p>
       <td class="field-body">
         <ul class="first simple">
             <li>
-                  <code><a class="autorefs autorefs-internal" title="tomograms.subtomogram.Subtomogram" href="#tomograms.subtomogram.Subtomogram">Subtomogram</a></code>
+                  <code><a class="autorefs autorefs-internal" title="tomogram_datasets.subtomogram.Subtomogram" href="#tomogram_datasets.subtomogram.Subtomogram">Subtomogram</a></code>
               –
               <div class="doc-md-description">
                 <p>The newly created subtomogram.</p>
@@ -1152,7 +1152,7 @@ self.tomogram's annotations is selected.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
@@ -1225,7 +1225,7 @@ self.tomogram's annotations is selected.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.subtomogram.SubtomogramGenerator.set_vol_shape" class="doc doc-heading">
+<h3 id="tomogram_datasets.subtomogram.SubtomogramGenerator.set_vol_shape" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">set_vol_shape</span><span class="p">(</span><span class="n">new_vol_shape</span><span class="p">)</span></code>
 
 </h3>
@@ -1233,7 +1233,7 @@ self.tomogram's annotations is selected.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Sets a new volume shape for the generator.</p>
+        <p>Sets a new volume shape for the generator.</p>
 
 
 <table class="field-list">
@@ -1260,7 +1260,7 @@ self.tomogram's annotations is selected.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/subtomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
@@ -1290,106 +1290,6 @@ self.tomogram's annotations is selected.</p>
 
 </div>
 
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="tomograms.subtomogram.in_bounds" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">in_bounds</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span></code>
-
-</h2>
-
-
-    <div class="doc doc-contents ">
-
-      <p>Checks if the <code>point</code> is within the bounds of an array with the given
-<code>shape</code>.</p>
-
-
-<table class="field-list">
-  <colgroup>
-    <col class="field-name" />
-    <col class="field-body" />
-  </colgroup>
-  <tbody valign="top">
-    <tr class="field">
-      <th class="field-name">Parameters:</th>
-      <td class="field-body">
-        <ul class="first simple">
-            <li>
-              <b><code>shape</code></b>
-                  (<code><span title="numpy.ndarray">ndarray</span></code>)
-              –
-              <div class="doc-md-description">
-                <p>The shape of the array. point (np.ndarray): The</p>
-              </div>
-            </li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<table class="field-list">
-  <colgroup>
-    <col class="field-name" />
-    <col class="field-body" />
-  </colgroup>
-  <tbody valign="top">
-    <tr class="field">
-      <th class="field-name">Returns:</th>
-      <td class="field-body">
-        <ul class="first simple">
-            <li>
-                  <code>bool</code>
-              –
-              <div class="doc-md-description">
-                <p>True if the point is within bounds, False otherwise.</p>
-              </div>
-            </li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
-            <details class="quote">
-              <summary>Source code in <code>tomograms/subtomogram.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">in_bounds</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">    Checks if the `point` is within the bounds of an array with the given</span>
-<span class="sd">    `shape`.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        shape (np.ndarray): The shape of the array. point (np.ndarray): The</span>
-<span class="sd">        point to check.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        True if the point is within bounds, False otherwise.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">p</span> <span class="o">&gt;=</span> <span class="n">s</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">return</span> <span class="kc">True</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
 
 
 
@@ -1426,7 +1326,7 @@ self.tomogram's annotations is selected.</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/mward19/tomograms" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/byu-biophysics/tomogram-datasets" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
     

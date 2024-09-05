@@ -1,5 +1,5 @@
-site_name: tomograms  
-repo_url: https://github.com/mward19/tomograms
+site_name: tomogram_datasets  
+repo_url: https://github.com/byu-biophysics/tomogram-datasets
 
 docs_dir: 'docs'
 

@@ -1,1 +1,1 @@
-::: tomograms.tomogram
+::: tomogram_datasets.tomogram

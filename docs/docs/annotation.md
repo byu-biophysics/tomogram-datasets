@@ -1,1 +1,1 @@
-::: tomograms.annotation
+::: tomogram_datasets.annotation
