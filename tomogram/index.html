@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Tomogram - tomograms</title>
+    <title>Tomogram - tomogram_datasets</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> tomograms
+          <a href=".." class="icon icon-home"> tomogram_datasets
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -41,7 +41,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">tomograms</a>
+                <li class="toctree-l1"><a class="reference internal" href="..">tomogram_datasets</a>
                 </li>
               </ul>
               <ul class="current">
@@ -69,7 +69,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">tomograms</a>
+          <a href="..">tomogram_datasets</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -78,7 +78,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Tomogram</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/mward19/tomograms/edit/master/docs/tomogram.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/byu-biophysics/tomogram-datasets/edit/master/docs/tomogram.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -90,7 +90,7 @@
 
 
 
-<a id="tomograms.tomogram"></a>
+<a id="tomogram_datasets.tomogram"></a>
     <div class="doc doc-contents first">
 
 
@@ -108,7 +108,7 @@
 
 
 
-<h2 id="tomograms.tomogram.Tomogram" class="doc doc-heading">
+<h2 id="tomogram_datasets.tomogram.Tomogram" class="doc doc-heading">
             <code>Tomogram</code>
 
 
@@ -118,7 +118,7 @@
     <div class="doc doc-contents ">
 
 
-      <p>Represents a tomogram.</p>
+        <p>Represents a tomogram.</p>
 <p>Has fields for tomogram data and shape, as well as any annotations
 corresponding to the tomogram, which are represented with the Annotation
 class.</p>
@@ -167,7 +167,7 @@ tomogram data.</p>
   </tbody>
 </table>
               <details class="quote">
-                <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+                <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
@@ -307,7 +307,7 @@ tomogram data.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.Tomogram.__init__" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.Tomogram.__init__" class="doc doc-heading">
             <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -315,7 +315,7 @@ tomogram data.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Initialize a Tomogram instance.</p>
+        <p>Initialize a Tomogram instance.</p>
 
 
 <table class="field-list">
@@ -353,7 +353,7 @@ corresponding to the tomogram. Defaults to None.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
@@ -384,7 +384,7 @@ corresponding to the tomogram. Defaults to None.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.Tomogram.add_annotation" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.Tomogram.add_annotation" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">add_annotation</span><span class="p">(</span><span class="n">annotation</span><span class="p">)</span></code>
 
 </h3>
@@ -392,7 +392,7 @@ corresponding to the tomogram. Defaults to None.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Add an annotation to the tomogram.</p>
+        <p>Add an annotation to the tomogram.</p>
 
 
 <table class="field-list">
@@ -407,7 +407,7 @@ corresponding to the tomogram. Defaults to None.</p>
         <ul class="first simple">
             <li>
               <b><code>annotation</code></b>
-                  (<code><a class="autorefs autorefs-internal" title="tomograms.annotation.Annotation" href="../annotation/#tomograms.annotation.Annotation">Annotation</a></code>)
+                  (<code><a class="autorefs autorefs-internal" title="tomogram_datasets.annotation.Annotation" href="../annotation/#tomogram_datasets.annotation.Annotation">Annotation</a></code>)
               –
               <div class="doc-md-description">
                 <p>An annotation object to be added to
@@ -420,7 +420,7 @@ the tomogram's annotations.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
@@ -445,7 +445,7 @@ the tomogram's annotations.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.Tomogram.annotation_points" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.Tomogram.annotation_points" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">annotation_points</span><span class="p">(</span><span class="n">annotation_index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -453,7 +453,7 @@ the tomogram's annotations.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get annotation points from the tomogram.</p>
+        <p>Get annotation points from the tomogram.</p>
 <p>Retrieves annotation points from a specific annotation
 if an index is provided, or all annotation points from all
 annotations if no index is given.</p>
@@ -510,7 +510,7 @@ all annotations.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
@@ -576,7 +576,7 @@ all annotations.</p>
 
 
 
-<h2 id="tomograms.tomogram.TomogramFile" class="doc doc-heading">
+<h2 id="tomogram_datasets.tomogram.TomogramFile" class="doc doc-heading">
             <code>TomogramFile</code>
 
 
@@ -585,10 +585,10 @@ all annotations.</p>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="tomograms.tomogram.Tomogram" href="#tomograms.tomogram.Tomogram">Tomogram</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="tomogram_datasets.tomogram.Tomogram" href="#tomogram_datasets.tomogram.Tomogram">Tomogram</a></code></p>
 
 
-      <p>Represents a tomogram file.</p>
+        <p>Represents a tomogram file.</p>
 <p>Extends the Tomogram class to handle file operations, including loading
 tomogram data from files of specific formats.</p>
 
@@ -635,7 +635,7 @@ image.</p>
   </tbody>
 </table>
               <details class="quote">
-                <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+                <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 77</span>
 <span class="normal"> 78</span>
 <span class="normal"> 79</span>
@@ -981,7 +981,7 @@ image.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.TomogramFile.__init__" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.TomogramFile.__init__" class="doc doc-heading">
             <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 </h3>
@@ -989,7 +989,7 @@ image.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Initialize a TomogramFile instance.</p>
+        <p>Initialize a TomogramFile instance.</p>
 
 
 <table class="field-list">
@@ -1039,7 +1039,7 @@ ready to load data.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
 <span class="normal"> 92</span>
 <span class="normal"> 93</span>
@@ -1096,7 +1096,7 @@ ready to load data.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.TomogramFile.get_shape_from_annotations" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.TomogramFile.get_shape_from_annotations" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">get_shape_from_annotations</span><span class="p">()</span></code>
 
 </h3>
@@ -1104,7 +1104,7 @@ ready to load data.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Returns the shape of the tomogram without having to load it using the
+        <p>Returns the shape of the tomogram without having to load it using the
 annotations attatched to this tomogram, if any are AnnotationFiles. If
 no AnnotationFiles of <code>.mod</code> type are in self.annotations, raises an
 exception.</p>
@@ -1170,7 +1170,7 @@ exception.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">208</span>
 <span class="normal">209</span>
 <span class="normal">210</span>
@@ -1245,7 +1245,7 @@ exception.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.TomogramFile.load" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.TomogramFile.load" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">load</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">preprocess</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 </h3>
@@ -1253,7 +1253,7 @@ exception.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Load the tomogram data from the specified file.</p>
+        <p>Load the tomogram data from the specified file.</p>
 <p>This method determines the file type based on its extension and loads
 the data accordingly.</p>
 
@@ -1330,7 +1330,7 @@ loading. Defaults to True.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
 <span class="normal">117</span>
 <span class="normal">118</span>
@@ -1409,7 +1409,7 @@ loading. Defaults to True.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.TomogramFile.mrc_to_np" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.TomogramFile.mrc_to_np" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">mrc_to_np</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
@@ -1421,7 +1421,7 @@ loading. Defaults to True.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Convert a .mrc or .rec file to a numpy array.</p>
+        <p>Convert a .mrc or .rec file to a numpy array.</p>
 
 
 <table class="field-list">
@@ -1471,7 +1471,7 @@ loading. Defaults to True.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">167</span>
 <span class="normal">168</span>
 <span class="normal">169</span>
@@ -1506,7 +1506,7 @@ loading. Defaults to True.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.TomogramFile.process" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.TomogramFile.process" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">process</span><span class="p">()</span></code>
 
 </h3>
@@ -1514,7 +1514,7 @@ loading. Defaults to True.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Process the tomogram to improve contrast using contrast stretching.</p>
+        <p>Process the tomogram to improve contrast using contrast stretching.</p>
 <p>This method applies contrast stretching to enhance the visibility
 of features in the tomogram.</p>
 
@@ -1542,7 +1542,7 @@ of features in the tomogram.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">181</span>
 <span class="normal">182</span>
 <span class="normal">183</span>
@@ -1579,7 +1579,7 @@ of features in the tomogram.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.TomogramFile.reload" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.TomogramFile.reload" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">reload</span><span class="p">()</span></code>
 
 </h3>
@@ -1587,7 +1587,7 @@ of features in the tomogram.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Reload the tomogram data from the file.</p>
+        <p>Reload the tomogram data from the file.</p>
 <p>This method reinitializes the tomogram data by loading it again
 from the specified file.</p>
 
@@ -1615,7 +1615,7 @@ from the specified file.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">196</span>
 <span class="normal">197</span>
 <span class="normal">198</span>
@@ -1646,7 +1646,7 @@ from the specified file.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="tomograms.tomogram.TomogramFile.rescale" class="doc doc-heading">
+<h3 id="tomogram_datasets.tomogram.TomogramFile.rescale" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">rescale</span><span class="p">(</span><span class="n">array</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
@@ -1658,7 +1658,7 @@ from the specified file.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Rescale array values to the range [0, 1].</p>
+        <p>Rescale array values to the range [0, 1].</p>
 
 
 <table class="field-list">
@@ -1708,7 +1708,7 @@ from the specified file.</p>
   </tbody>
 </table>
             <details class="quote">
-              <summary>Source code in <code>tomograms/tomogram.py</code></summary>
+              <summary>Source code in <code>tomogram_datasets/tomogram.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">152</span>
 <span class="normal">153</span>
 <span class="normal">154</span>
@@ -1762,7 +1762,7 @@ from the specified file.</p>
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href=".." class="btn btn-neutral float-left" title="tomograms"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href=".." class="btn btn-neutral float-left" title="tomogram_datasets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../annotation/" class="btn btn-neutral float-right" title="Annotation">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -1786,7 +1786,7 @@ from the specified file.</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/mward19/tomograms" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/byu-biophysics/tomogram-datasets" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
     
