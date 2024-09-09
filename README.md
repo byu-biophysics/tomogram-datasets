@@ -8,7 +8,7 @@ simplifying analysis and dataset creation.
 ## Installation
 Install with pip:
 ```shell
-pip install git+https://github.com/mward19/tomograms.git
+pip install git+https://github.com/byu-biophysics/tomogram-datasets.git
 ```
 
 ## Documentation
