@@ -71,23 +71,35 @@ class AnnotationFile(Annotation):
         _, extension = os.path.splitext(filepath)
         if extension != ext:
             raise IOError(f"Annotation must be a {ext} file.")
-    
+
     @staticmethod
     def mod_to_pd(filepath: str) -> pd.DataFrame:
         """Converts a .mod file to a pandas DataFrame.
 
         Args:
-            filepath (str): File to convert
+            filepath (str): File to convert.
 
         Returns:
-            DataFrame of the annotation file.
+            DataFrame of the annotation file with center_x, center_y, center_z renamed to
+            x, y, z if annotation='slicer_angles'.
 
         Raises:
             IOError: If the file extension is not .mod.
         """
         AnnotationFile.check_ext(filepath, ".mod")
-        return imodmodel.read(filepath)
 
+        try:
+            # First attempt with the 'annotation' parameter
+            df = imodmodel.read(filepath, annotation='slicer_angles')
+            # Check if the relevant columns are present and rename them
+            if all(col in df.columns for col in ['center_x', 'center_y', 'center_z']):
+                df = df.rename(columns={'center_x': 'x', 'center_y': 'y', 'center_z': 'z'})
+            return df
+        except Exception as e:
+            print(f"Attempt with 'annotation=slicer_angles' failed: {e}")
+            # Fallback attempt without the 'annotation' parameter
+            return imodmodel.read(filepath)
+    
     @staticmethod
     def mod_points(filepath: str) -> List[np.ndarray]:
         """Reads a .mod file and extracts the points it contains.
