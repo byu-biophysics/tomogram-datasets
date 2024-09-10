@@ -132,8 +132,26 @@ def all_fm_tomograms() -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+
+    # ~~~ ANNOTATION PARTY ~~~ #
+    root = f"/grphome/grp_tomo_db1_d4/nobackup/archive/ExperimentRuns"
+    dir_regex = re.compile(r"(sma\d{4}.*)|(Vibrio.*)")
+    directories = seek_dirs(root, dir_regex)
+
+    flagellum_regex = re.compile(r"flagellar_motor\.mod")
+    tomogram_regex = re.compile(r".*\.mrc$")
+
+    these_tomograms = seek_annotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex], 
+        ["Flagellar Motor"]
+    )
+    tomograms += these_tomograms
     
     return tomograms
+    
+
 
 def seek_file(directory: str, regex: re.Pattern) -> Union[str, None]:
     """Search for a file matching the given regex recursively in the specified
