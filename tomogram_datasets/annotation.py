@@ -87,7 +87,7 @@ class AnnotationFile(Annotation):
         """
         AnnotationFile.check_ext(filepath, ".mod")
         return imodmodel.read(filepath)
-
+    
     @staticmethod
     def mod_points(filepath: str) -> List[np.ndarray]:
         """Reads a .mod file and extracts the points it contains.
