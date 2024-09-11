@@ -141,7 +141,7 @@ def all_fm_tomograms() -> List[TomogramFile]:
     flagellum_regex = re.compile(r"flagellar_motor\.mod")
     tomogram_regex = re.compile(r".*\.mrc$")
 
-    these_tomograms_temp = seek_annotated_tomos(
+    these_tomograms = seek_annotated_tomos(
         directories, 
         tomogram_regex, 
         [flagellum_regex], 
