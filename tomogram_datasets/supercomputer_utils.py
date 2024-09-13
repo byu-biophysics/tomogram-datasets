@@ -117,6 +117,22 @@ def all_fm_tomograms() -> List[TomogramFile]:
     )
     tomograms += these_tomograms
 
+    #Vibrio_harveyi
+    root = f"/grphome/grp_tomo_db1_d3/nobackup/archive/TomoDB1_d3/jhome_extra/Vibrio_harveyi"
+    dir_regex = re.compile(r"ab\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^FM\.mod$")
+    tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
+    
+    these_tomograms = seek_annotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex], 
+        ["Flagellar Motor"]
+    )
+    tomograms += these_tomograms
+
     # ~~~ ZHIPING ~~~ #
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
     dir_regex = re.compile(r"rrb\d{4}.*")
@@ -133,6 +149,22 @@ def all_fm_tomograms() -> List[TomogramFile]:
     )
     tomograms += these_tomograms
     
+    # ~~~ STEFANO ~~~ #
+    root = f"/grphome/grp_tomo_db1_d4/nobackup/archive/ExperimentRuns"
+    dir_regex = re.compile(r"sma\d{4}")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^flagellar_motor\.mod$")
+    tomogram_regex = re.compile(r".*\.mrc$")
+    
+    these_tomograms = seek_annotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex], 
+        ["Flagellar Motor"]
+    )
+    tomograms += these_tomograms
+
     return tomograms
 
 def seek_file(directory: str, regex: re.Pattern) -> Union[str, None]:
