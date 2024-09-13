@@ -87,7 +87,6 @@ class AnnotationFile(Annotation):
             IOError: If the file extension is not .mod.
         """
         AnnotationFile.check_ext(filepath, ".mod")
-
         try:
             # First attempt with the 'annotation' parameter
             df = imodmodel.read(filepath, annotation='slicer_angles')

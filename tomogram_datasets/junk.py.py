@@ -8,6 +8,8 @@ import os
 from .annotation import AnnotationFile
 from .tomogram import TomogramFile
 
+import pdb
+
 from typing import List, Union, Optional
 
 def all_fm_tomograms() -> List[TomogramFile]:
@@ -141,12 +143,14 @@ def all_fm_tomograms() -> List[TomogramFile]:
     flagellum_regex = re.compile(r"flagellar_motor\.mod")
     tomogram_regex = re.compile(r".*\.mrc$")
 
-    these_tomograms = seek_annotated_tomos(
+    pdb.set_trace()
+    these_tomograms_temp = seek_annotated_tomos(
         directories, 
         tomogram_regex, 
         [flagellum_regex], 
         ["Flagellar Motor"]
     )
+    pdb.breakpoint()
     tomograms += these_tomograms
     
     return tomograms
@@ -298,10 +302,7 @@ def seek_annotated_tomos(
             annotation_files = matches[1:]
             annotations = []
             for (file, name) in zip(annotation_files, annotation_names):
-                try:
-                    annotations.append(AnnotationFile(file, name))
-                except Exception as e:
-                    print(f"An exception occured while loading `{file}`:\n{e}\n")
+                annotations.append(AnnotationFile(file, name))
             tomo = TomogramFile(tomogram_file, annotations, load=False)
             tomos.append(tomo)
     return tomos
