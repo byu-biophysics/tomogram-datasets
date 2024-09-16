@@ -81,11 +81,9 @@ class TomogramFile(Tomogram):
     tomogram data from files of specific formats.
 
     Attributes:
-        filepath (str): The file path to the tomogram file. annotations (list of
-        Annotation): Annotations corresponding to the
-            tomogram.
-        data (numpy.ndarray): A 3-dimensional array containing the tomogram
-            image.
+        filepath (str): The file path to the tomogram file. 
+        annotations (list of Annotation): Annotations corresponding to the tomogram.
+        data (numpy.ndarray): A 3-dimensional array containing the tomogram image.
     """
 
     def __init__(
