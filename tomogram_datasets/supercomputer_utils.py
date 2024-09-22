@@ -10,6 +10,8 @@ from .tomogram import TomogramFile
 
 from typing import List, Union, Optional
 
+import warnings
+
 def all_fm_tomograms() -> List[TomogramFile]:
     """Collect all pairs of `.rec` tomogram filepaths and flagellar motor `.mod` filepaths.
 
@@ -150,7 +152,143 @@ def all_fm_tomograms() -> List[TomogramFile]:
     tomograms += these_tomograms
     
     return tomograms
+
+def all_fm_negative_tomograms() -> List[TomogramFile]:
+    """
+    Collect all `.rec` tomogram filepaths that have (probably, for now) been
+    reviewed and do not have flagellar motors.
+
+    **IN DEVELOPMENT**
+
+    Returns:
+        TomogramFile objects with no annotations attached.
+    """
+    tomograms = []
     
+    # ~~~ DRIVE 1 ~~~ #
+    # Hylemonella
+    root = f"/grphome/grp_tomo_db1_d1/nobackup/archive/TomoDB1_d1/FlagellarMotor_P1/Hylemonella gracilis"
+    dir_regex = re.compile(r"yc\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^fm.mod$", re.IGNORECASE)
+    tomogram_regex = re.compile(r".*\.rec$")
+    
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+
+    # ~~~ DRIVE 2 ~~~ #
+    # Legionella
+    root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/legionella"
+    dir_regex = re.compile(r"dg\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^FM\.mod$")
+    tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
+    
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+
+    # Pseudomonas
+    root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/Pseudomonasaeruginosa/done"
+    dir_regex = re.compile(r"ab\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^FM\.mod$")
+    tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
+    
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+
+    # Proteus_mirabilis
+    root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/Proteus_mirabilis"
+    dir_regex = re.compile(r"qya\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^FM\.mod$")
+    tomogram_regex = re.compile(r".*\.rec$")
+    
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+
+    # ~~~ DRIVE 3 ~~~ #
+    # Bdellovibrio
+    root = f"/grphome/grp_tomo_db1_d3/nobackup/archive/TomoDB1_d3/jhome_extra/Bdellovibrio_YW"
+    dir_regex = re.compile(r"yc\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^flagellum_SIRT_1k\.mod$")
+    tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
+    
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+
+    # Azospirillum
+    root = f"/grphome/grp_tomo_db1_d3/nobackup/archive/TomoDB1_d3/jhome_extra/AzospirillumBrasilense/done"
+    dir_regex = re.compile(r"ab\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^FM3\.mod$")
+    tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
+    
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+
+    # ~~~ ZHIPING ~~~ #
+    root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
+    dir_regex = re.compile(r"rrb\d{4}.*")
+    directories = seek_dirs(root, dir_regex)
+    
+    flagellum_regex = re.compile(r"^flagellum\.mod$")
+    tomogram_regex = re.compile(r".*\.rec$")
+    
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+
+    # ~~~ ANNOTATION PARTY ~~~ #
+    root = f"/grphome/grp_tomo_db1_d4/nobackup/archive/ExperimentRuns/"
+    dir_regex = re.compile(r"(sma\d{4}.*)|(Vibrio.*)")
+    directories = seek_dirs(root, dir_regex)
+
+    flagellum_regex = re.compile(r"flagellar_motor\.mod")
+    tomogram_regex = re.compile(r".*\.mrc$")
+
+    these_tomograms = seek_unannotated_tomos(
+        directories, 
+        tomogram_regex, 
+        [flagellum_regex]
+    )
+    tomograms += these_tomograms
+    
+    return tomograms
 
 
 def seek_file(directory: str, regex: re.Pattern) -> Union[str, None]:
@@ -273,7 +411,9 @@ def seek_annotated_tomos(
             annotation_regexes: List[re.Pattern], 
             annotation_names: List[str]
         ) -> List[TomogramFile]:
-    """Collect pairs of tomogram files and their corresponding annotation files.
+    """
+    Collect pairs of tomogram files and their corresponding annotation files,
+    without loading the tomograms.
 
     Args:
         directories (list of str): List of directories to search for tomograms
@@ -287,8 +427,7 @@ def seek_annotated_tomos(
         annotation_names (list of str): A list of names for the annotations.
 
     Returns:
-        TomogramFile objects with their corresponding
-        annotations.
+        TomogramFile objects with their corresponding annotations.
     """
     tomos = []
     for dir in directories:
@@ -304,4 +443,54 @@ def seek_annotated_tomos(
                     print(f"An exception occured while loading `{file}`:\n{e}\n")
             tomo = TomogramFile(tomogram_file, annotations, load=False)
             tomos.append(tomo)
+    return tomos
+
+def seek_unannotated_tomos(
+            directories: List[str], 
+            tomo_regex: re.Pattern, 
+            annotation_regexes: List[re.Pattern], 
+        ) -> List[TomogramFile]:
+    """
+    Collect tomogram files that don't have annotations, without loading the
+    tomograms.
+
+    Args:
+        directories (list of str): List of directories to search for tomograms
+        and annotations.
+        
+        tomo_regex (re.Pattern): The regex pattern to match tomogram filenames.
+        
+        annotation_regexes (list of re.Pattern): A list of regex patterns. If
+        any of these patterns find a match for one of the files in a given
+        directory in `directories`, the tomogram in that directory will not be
+        saved and returned. 
+
+    Returns:
+        TomogramFile objects.
+    """
+    tomos = []
+    for dir in directories:
+        matches = seek_set(dir, [tomo_regex] + annotation_regexes)
+
+        if matches is not None and None not in matches:
+            # This tomogram is annotated
+            continue
+        else:
+            # Ensure that there is a tomogram in this directory
+            tomo_candidates = seek_files(dir, tomo_regex)
+            n_candidates = len(tomo_candidates)
+            # If there are multiple possible unannotated tomogram candidates or
+            # none here, that's an issue.
+            if n_candidates > 1:
+                warnings.warn(f"Multiple ({n_candidates}) unannotated tomograms in {dir} found. This may mean that the regular expression used to seek tomograms is not specific enough, or that this directory is strange.")
+                continue
+            elif n_candidates == 0:
+                warnings.warn(f"No tomograms found in {dir}.")
+                continue
+            # If there is one candidate, it isn't annotated.
+            else:
+                # Append what must be the only unannotated tomogram candidate
+                tomogram_file = tomo_candidates[0]
+                tomo = TomogramFile(tomogram_file, load=False)
+                tomos.append(tomo) 
     return tomos

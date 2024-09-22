@@ -3,3 +3,5 @@ tomogram_datasets.egg-info/
 __pycache__/
 py_tomogram_datasets/
 j/
+k/
+debug.py
