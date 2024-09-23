@@ -64,11 +64,11 @@ def test_process():
     # Alter some data to ensure that the processing does something
     tomo.data[2, 3, 4] = -3
 
-    orig_data = tomo.data.copy()
+    orig_data = tomo.get_data().copy()
     orig_shape = tomo.shape
     tomo.process()
     assert np.allclose(tomo.shape, orig_shape)
-    assert not np.allclose(tomo.data, orig_data)
+    assert not np.allclose(tomo.get_data(), orig_data)
 
 def test_reload():
     file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
@@ -78,11 +78,11 @@ def test_reload():
     tomo.data[2, 3, 4] = -3
     tomo.process()
 
-    processed_data = tomo.data.copy()
+    processed_data = tomo.get_data().copy()
 
     tomo.reload()
 
-    assert not np.allclose(tomo.data, processed_data)
+    assert not np.allclose(tomo.get_data(), processed_data)
 
 def test_get_shape_from_annotations():
     # TODO. Need a small tomogram with annotation
