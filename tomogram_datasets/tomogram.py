@@ -71,7 +71,14 @@ class Tomogram:
             for index in indices:
                 points += self.annotation_points(index)
             return points
-        
+    
+    def get_data(self) -> np.ndarray:
+        """Access the data array in the tomogram.
+
+        Returns:
+            The array data of the tomogram. In other words, returns the image.
+        """
+        return self.data
 
 
 class TomogramFile(Tomogram):
@@ -79,6 +86,8 @@ class TomogramFile(Tomogram):
 
     Extends the Tomogram class to handle file operations, including loading
     tomogram data from files of specific formats.
+
+    Access the image data inside with `get_data()`.
 
     Attributes:
         filepath (str): The file path to the tomogram file. annotations (list of
@@ -148,6 +157,20 @@ class TomogramFile(Tomogram):
             self.process()
         
         return self.data
+    
+    def get_data(self, *, preprocess:bool = True) -> np.ndarray:
+        """
+        Access the data array in the tomogram. If the data has not been loaded,
+        this method loads it and then returns the loaded array.
+
+        Args:
+            preprocess (bool, optional): Whether to preprocess the data after
+                loading. Defaults to True.
+        
+        Returns:
+            The array data of the tomogram. In other words, returns the image.
+        """
+        return self.load()
 
     @staticmethod
     def rescale(array: np.ndarray) -> np.ndarray:
@@ -188,22 +211,23 @@ class TomogramFile(Tomogram):
             The processed tomogram data.
         """
         # Contrast stretching
-        p2, p98 = np.percentile(self.data, (2, 98))
-        data_rescale = exposure.rescale_intensity(self.data, in_range=(p2, p98))
+        p2, p98 = np.percentile(self.get_data(), (2, 98))
+        data_rescale = exposure.rescale_intensity(self.get_data(), in_range=(p2, p98))
         self.data = data_rescale
-        return self.data
+        return self.get_data()
 
     def reload(self) -> np.ndarray:
         """Reload the tomogram data from the file.
 
-        This method reinitializes the tomogram data by loading it again
-        from the specified file.
+        This method reinitializes the tomogram data by loading it again from the
+        specified file. If the data has already been loaded, access it with
+        self.get_data().
 
         Returns:
             The reloaded tomogram data.
         """
         self.data = TomogramFile.mrc_to_np(self.filepath)
-        return self.data
+        return self.get_data()
 
     def get_shape_from_annotations(self) -> np.ndarray:
         """
