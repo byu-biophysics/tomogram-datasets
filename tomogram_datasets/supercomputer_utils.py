@@ -307,7 +307,7 @@ def seek_file(directory: str, regex: re.Pattern) -> Union[str, None]:
 
     Args:
         directory (str): The root directory to start the search. regex
-        (re.Pattern): The regex pattern to match the filenames.
+        regex (re.Pattern): The regex pattern to match the filenames.
 
     Returns:
         The full path of the matching file, or None if no match is
