@@ -13,7 +13,13 @@ from typing import List, Union, Optional
 import warnings
 
 def all_fm_tomograms() -> List[TomogramFile]:
-    """Collect all pairs of `.rec` tomogram filepaths and flagellar motor `.mod` filepaths.
+    """
+    Collect all pairs of `.rec` tomogram filepaths and flagellar motor `.mod`
+    filepaths.
+
+    Does not initially load the tomogram image data. Given a `Tomogram` called
+    `tomo`, one can load and access the image data in one step with
+    `tomo.get_data()`.
 
     Returns:
         TomogramFile objects with their annotations.
@@ -158,7 +164,11 @@ def all_fm_negative_tomograms() -> List[TomogramFile]:
     Collect all `.rec` tomogram filepaths that have (probably, for now) been
     reviewed and do not have flagellar motors.
 
-    **IN DEVELOPMENT**
+    Does not initially load the tomogram image data. Given a `Tomogram` called
+    `tomo`, one can load and access the image data in one step with
+    `tomo.get_data()`.
+
+    **IN DEVELOPMENT** These results need to be manually checked.
 
     Returns:
         TomogramFile objects with no annotations attached.
@@ -297,7 +307,7 @@ def seek_file(directory: str, regex: re.Pattern) -> Union[str, None]:
 
     Args:
         directory (str): The root directory to start the search. regex
-        (re.Pattern): The regex pattern to match the filenames.
+        regex (re.Pattern): The regex pattern to match the filenames.
 
     Returns:
         The full path of the matching file, or None if no match is
