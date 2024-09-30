@@ -169,6 +169,43 @@ class TomogramFile(Tomogram):
             The array data of the tomogram. In other words, returns the image.
         """
         return self.load()
+    
+    def get_shape(self, *, preprocess:bool = True) -> np.ndarray:
+        """
+        Access the data array shape in the tomogram. If the data has not been
+        loaded, this method loads it and then returns the loaded array shape.
+
+        Args:
+            preprocess (bool, optional): Whether to preprocess the data after
+                loading. Defaults to True.
+        
+        Returns:
+            The data array shape of the tomogram. In other words, returns the
+            image's dimensions.
+        """
+        if self.data is None: self.load(preprocess=preprocess)
+        return self.data.shape
+    
+    def get_voxel_spacing(self):
+        """
+        Uses `.mrc` file header information to find the voxel spacing of this
+        tomogram in Ångstroms.
+
+        Returns:
+            Either an integer (if the voxel spacing is isotropic, i.e., the same
+            in all directions), or a 3-tuple (if the spacing is anisotropic)
+            representing the voxel spacing in each direction.
+
+        Raises:
+            IOError: If the file type is not `.mrc`.
+        """
+        # Determine file extension.
+        root, extension = os.path.splitext(self.filepath)
+        if extension not in [".mrc", ".rec"]:
+            raise IOError("Tomogram file must be .mrc to load the voxel spacing.")
+        
+        mrc = mrcfile.open(self.filepath, mode='r')
+        return mrc.voxel_size
 
     @staticmethod
     def rescale(array: np.ndarray) -> np.ndarray:
