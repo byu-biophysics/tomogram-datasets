@@ -205,7 +205,22 @@ class TomogramFile(Tomogram):
             raise IOError("Tomogram file must be .mrc to load the voxel spacing.")
         
         mrc = mrcfile.open(self.filepath, mode='r')
-        return mrc.voxel_size
+        spacing = mrc.voxel_size
+
+        # Convert pesky np.recarray to a normal ndarray
+        if isinstance(spacing, np.recarray):
+            spacing = np.array([spacing.x.item(), spacing.y.item(), spacing.z.item()])
+        
+        # If the spacing is already a scalar, return it.
+        if isinstance(spacing, (int, float)):
+            return spacing
+        
+        # If it isn't, check if all the tuple values are the same.
+        # If so, just return one. If not, return the whole tuple
+        if spacing[0] == spacing[1] and spacing[0] == spacing[2]:
+            return spacing[0]
+        else:
+            return spacing
 
     @staticmethod
     def rescale(array: np.ndarray) -> np.ndarray:
