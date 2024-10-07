@@ -12,7 +12,7 @@ from typing import List, Union, Optional
 
 import warnings
 
-def all_fm_tomograms() -> List[TomogramFile]:
+def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
     """
     Collect all pairs of `.rec` tomogram filepaths and flagellar motor `.mod`
     filepaths.
@@ -20,6 +20,10 @@ def all_fm_tomograms() -> List[TomogramFile]:
     Does not initially load the tomogram image data. Given a `Tomogram` called
     `tomo`, one can load and access the image data in one step with
     `tomo.get_data()`.
+
+    Args:
+        include_private (bool): Whether to include our newest annotations, which
+        should not be available to the public. Defaults to False.
 
     Returns:
         TomogramFile objects with their annotations.
@@ -125,6 +129,10 @@ def all_fm_tomograms() -> List[TomogramFile]:
     )
     tomograms += these_tomograms
 
+    ### ANNOTATIONS BEYOND HERE ARE PRIVATE ###
+    if not include_private:
+        return tomograms
+
     # ~~~ ZHIPING ~~~ #
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
     dir_regex = re.compile(r"rrb\d{4}.*")
@@ -140,7 +148,7 @@ def all_fm_tomograms() -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
-
+    
     # ~~~ ANNOTATION PARTY ~~~ #
     root = f"/grphome/grp_tomo_db1_d4/nobackup/archive/ExperimentRuns/"
     dir_regex = re.compile(r"(sma\d{4}.*)|(Vibrio.*)")
@@ -159,7 +167,7 @@ def all_fm_tomograms() -> List[TomogramFile]:
     
     return tomograms
 
-def all_fm_negative_tomograms() -> List[TomogramFile]:
+def all_fm_negative_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
     """
     Collect all `.rec` tomogram filepaths that have (probably, for now) been
     reviewed and do not have flagellar motors.
@@ -169,6 +177,10 @@ def all_fm_negative_tomograms() -> List[TomogramFile]:
     `tomo.get_data()`.
 
     **IN DEVELOPMENT** These results need to be manually checked.
+
+    Args:
+        include_private (bool): Whether to include our newest annotations, which
+        should not be available to the public. Defaults to False.
 
     Returns:
         TomogramFile objects with no annotations attached.
@@ -267,6 +279,10 @@ def all_fm_negative_tomograms() -> List[TomogramFile]:
         [flagellum_regex]
     )
     tomograms += these_tomograms
+
+    ### ANNOTATIONS BEYOND HERE ARE PRIVATE ###
+    if not include_private:
+        return tomograms
 
     # ~~~ ZHIPING ~~~ #
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
