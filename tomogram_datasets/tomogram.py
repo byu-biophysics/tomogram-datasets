@@ -8,7 +8,7 @@ import os
 from .annotation import Annotation
 from .annotation import AnnotationFile
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 class Tomogram:
     """Represents a tomogram.
@@ -93,6 +93,7 @@ class TomogramFile(Tomogram):
         filepath (str): The file path to the tomogram file. 
         annotations (list of Annotation): Annotations corresponding to the tomogram.
         data (numpy.ndarray): A 3-dimensional array containing the tomogram image.
+        header (dict or numpy.recarray) Other data related to the tomogram file.
     """
 
     def __init__(
@@ -117,9 +118,10 @@ class TomogramFile(Tomogram):
         self.annotations = annotations
         self.filepath = filepath
 
+        self.load_header()
+        
         if load:
-            self.data = self.load()
-            self.shape = self.data.shape if self.data is not None else None
+            self.load()
 
     def load(self, *, preprocess: bool = True):
         """Load the tomogram data from the specified file.
@@ -152,14 +154,38 @@ class TomogramFile(Tomogram):
         # Initialize Tomogram class
         super().__init__(data, self.annotations)
         
-        # Ensure shape is set
-        self.shape = data.shape  # Update shape here
-        
         if preprocess:
             self.process()
         
         return self.data
+    
+    def load_header(self) -> Union[dict, np.recarray]:
+        """Loads only tomogram header data from the specified file.
+    
+        This method determines the file type based on its extension and loads
+        the data accordingly.
+    
+        Returns:
+            The loaded tomogram header data.
+    
+        Raises:
+            IOError: If the file type is not supported.
+        """
+        # Determine how to load based on file extension.
+        root, extension = os.path.splitext(self.filepath)
+        if extension in [".mrc", ".rec"]:
+            mrc = mrcfile.open(self.filepath, header_only=True)
+            self.header = mrc.header
+            # Shape seems backward because python convention is reverse of
+            # FORTRAN convention. This is deliberate.
+            self.shape = tuple(self.header[dim].item() for dim in ['nz', 'ny', 'nx'])
+            mrc.close()
+        elif extension == ".npy":
+            self.header = dict()
+        else:
+            raise IOError("Tomogram file must be of type .mrc, .rec, or .npy.")
 
+        return self.header
        
     
     def get_data(self, *, preprocess:bool = True) -> np.ndarray:
@@ -189,8 +215,7 @@ class TomogramFile(Tomogram):
             The data array shape of the tomogram. In other words, returns the
             image's dimensions.
         """
-        if self.data is None: self.load(preprocess=preprocess)
-        return self.data.shape
+        return self.shape
     
     def get_voxel_spacing(self):
         """
@@ -210,7 +235,7 @@ class TomogramFile(Tomogram):
         if extension not in [".mrc", ".rec"]:
             raise IOError("Tomogram file must be .mrc to load the voxel spacing.")
         
-        mrc = mrcfile.open(self.filepath, mode='r')
+        mrc = mrcfile.open(self.filepath, mode='r', header_only=True)
         spacing = mrc.voxel_size
 
         # Convert pesky np.recarray to a normal ndarray
