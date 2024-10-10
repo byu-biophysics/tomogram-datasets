@@ -108,6 +108,12 @@ def test_reload():
 
     assert not np.allclose(tomo.get_data(), processed_data)
 
+def test_voxel_spacing():
+    file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
+    tomo = tomogram_datasets.TomogramFile(file_1, load=False)
+    vs = tomo.get_voxel_spacing()
+    assert isinstance(vs, (float, tuple, np.ndarray))
+
 def test_get_shape_from_annotations():
     # TODO. Need a small tomogram with annotation
     pass
