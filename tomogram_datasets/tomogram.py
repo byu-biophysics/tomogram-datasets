@@ -119,6 +119,7 @@ class TomogramFile(Tomogram):
 
         if load:
             self.data = self.load()
+            self.shape = self.data.shape if self.data is not None else None
 
     def load(self, *, preprocess: bool = True):
         """Load the tomogram data from the specified file.
