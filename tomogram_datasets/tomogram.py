@@ -179,6 +179,7 @@ class TomogramFile(Tomogram):
             # Shape seems backward because python convention is reverse of
             # FORTRAN convention. This is deliberate.
             self.shape = tuple(self.header[dim].item() for dim in ['nz', 'ny', 'nx'])
+            mrc.close()
         elif extension == ".npy":
             self.header = dict()
         else:
