@@ -123,17 +123,17 @@ class TomogramFile(Tomogram):
 
     def load(self, *, preprocess: bool = True):
         """Load the tomogram data from the specified file.
-
+    
         This method determines the file type based on its extension and loads
         the data accordingly.
-
+    
         Args:
             preprocess (bool, optional): Whether to preprocess the data after
                 loading. Defaults to True.
-
+    
         Returns:
             The loaded tomogram data.
-
+    
         Raises:
             IOError: If the file type is not supported.
         """
@@ -151,11 +151,16 @@ class TomogramFile(Tomogram):
         
         # Initialize Tomogram class
         super().__init__(data, self.annotations)
-
+        
+        # Ensure shape is set
+        self.shape = data.shape  # Update shape here
+        
         if preprocess:
             self.process()
         
         return self.data
+
+       
     
     def get_data(self, *, preprocess:bool = True) -> np.ndarray:
         """
