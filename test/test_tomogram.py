@@ -1,6 +1,7 @@
 import pytest
 
 import numpy as np
+from time import perf_counter as now
 
 import tomogram_datasets
 
@@ -57,6 +58,29 @@ def test_mrc_to_np():
     assert isinstance(array_1, np.ndarray)
     assert np.allclose(array_1.shape, (109, 319, 318))
 
+def test_load_header():
+    file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
+    
+    # Load only with header
+    begin = now()
+    header_only = tomogram_datasets.TomogramFile(file_1, load=False)
+    time_load_header = now() - begin
+
+    # Load tomogram with its data array
+    begin = now()
+    data_and_header = tomogram_datasets.TomogramFile(file_1, load=True)
+    time_data_and_header = now() - begin
+
+    # It should load a lot faster with only header
+    assert time_data_and_header > 10 * time_load_header
+
+    # Check that the right stuff loaded
+    for a, b in zip(header_only.shape, data_and_header.shape):
+        assert a == b
+    assert isinstance(header_only.header['mode'].item(), int)
+    assert isinstance(data_and_header.header['mode'].item(), int)
+
+
 def test_process():
     file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
     tomo = tomogram_datasets.TomogramFile(file_1)
@@ -83,6 +107,12 @@ def test_reload():
     tomo.reload()
 
     assert not np.allclose(tomo.get_data(), processed_data)
+
+def test_voxel_spacing():
+    file_1 = "test/data/mba2011-04-12-1.mrc" # https://cryoetdataportal.czscience.com/runs/10132
+    tomo = tomogram_datasets.TomogramFile(file_1, load=False)
+    vs = tomo.get_voxel_spacing()
+    assert isinstance(vs, (float, tuple, np.ndarray))
 
 def test_get_shape_from_annotations():
     # TODO. Need a small tomogram with annotation
