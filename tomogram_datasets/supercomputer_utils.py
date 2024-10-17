@@ -2,15 +2,35 @@
 A collection of utilities for use on BYU's supercomputer.
 """
 
-
 import re
 import os
+import sys
+import time
 from .annotation import AnnotationFile
 from .tomogram import TomogramFile
 
 from typing import List, Union, Optional
 
 import warnings
+
+# For now, there are too many warnings because we haven't cleaned the data up
+# much. For now, ignore it.
+warnings.filterwarnings("ignore", category=UserWarning)
+
+def display_progress(custom_info: dict):
+    """
+    Display progress information without a traditional progress bar. This is
+    useful when the total number is uncertain, but you want to monitor progress.
+    """
+    # Create a formatted string to show progress information from the dictionary
+    if custom_info and isinstance(custom_info, dict):
+        progress_info = " | ".join([f"{key}: {value}" for key, value in custom_info.items()])
+    else:
+        progress_info = "No information to display"
+
+    # Print the progress info in place (no new line, updates in place)
+    sys.stdout.write(f"\r{progress_info}")
+    sys.stdout.flush()
 
 def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
     """
@@ -30,11 +50,21 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
     """
     tomograms = []
     
+    def _progress(dir_count, tomo_count, current_dir):
+        current_item = os.path.basename(os.path.normpath(current_dir))
+        display_progress({
+            "Directories processed": dir_count,
+            "Tomograms processed": tomo_count,
+            "Current directory": current_item
+        })
+        
+    dir_count = 0
     # ~~~ DRIVE 1 ~~~ #
     # Hylemonella
     root = f"/grphome/grp_tomo_db1_d1/nobackup/archive/TomoDB1_d1/FlagellarMotor_P1/Hylemonella gracilis"
     dir_regex = re.compile(r"yc\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^fm.mod$", re.IGNORECASE)
     tomogram_regex = re.compile(r".*\.rec$")
@@ -46,12 +76,14 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # ~~~ DRIVE 2 ~~~ #
     # Legionella
     root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/legionella"
     dir_regex = re.compile(r"dg\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^FM\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
@@ -63,11 +95,13 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # Pseudomonas
     root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/Pseudomonasaeruginosa/done"
     dir_regex = re.compile(r"ab\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^FM\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
@@ -79,11 +113,13 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # Proteus_mirabilis
     root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/Proteus_mirabilis"
     dir_regex = re.compile(r"qya\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^FM\.mod$")
     tomogram_regex = re.compile(r".*\.rec$")
@@ -95,12 +131,14 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # ~~~ DRIVE 3 ~~~ #
     # Bdellovibrio
     root = f"/grphome/grp_tomo_db1_d3/nobackup/archive/TomoDB1_d3/jhome_extra/Bdellovibrio_YW"
     dir_regex = re.compile(r"yc\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^flagellum_SIRT_1k\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
@@ -112,11 +150,13 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # Azospirillum
     root = f"/grphome/grp_tomo_db1_d3/nobackup/archive/TomoDB1_d3/jhome_extra/AzospirillumBrasilense/done"
     dir_regex = re.compile(r"ab\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^FM3\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
@@ -128,6 +168,7 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     ### ANNOTATIONS BEYOND HERE ARE PRIVATE ###
     if not include_private:
@@ -137,6 +178,7 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
     dir_regex = re.compile(r"rrb\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^flagellum\.mod$")
     tomogram_regex = re.compile(r".*\.rec$")
@@ -148,11 +190,13 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
     
     # ~~~ ANNOTATION PARTY ~~~ #
     root = f"/grphome/grp_tomo_db1_d4/nobackup/archive/ExperimentRuns/"
     dir_regex = re.compile(r"(sma\d{4}.*)|(Vibrio.*)")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
 
     flagellum_regex = re.compile(r"flagellar_motor\.mod")
     tomogram_regex = re.compile(r".*\.mrc$")
@@ -164,7 +208,9 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
+    dir_count += 1
     
+    _progress(dir_count, len(tomograms), "")
     return tomograms
 
 def all_fm_negative_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
@@ -186,7 +232,16 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         TomogramFile objects with no annotations attached.
     """
     tomograms = []
-    
+
+    def _progress(dir_count, tomo_count, current_dir):
+        current_item = os.path.basename(os.path.normpath(current_dir))
+        display_progress({
+            "Directories processed": dir_count,
+            "Tomograms processed": tomo_count,
+            "Current directory": current_item
+        })
+
+    dir_count = 0
     # ~~~ DRIVE 1 ~~~ #
     # Hylemonella
     root = f"/grphome/grp_tomo_db1_d1/nobackup/archive/TomoDB1_d1/FlagellarMotor_P1/Hylemonella gracilis"
@@ -202,12 +257,14 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # ~~~ DRIVE 2 ~~~ #
     # Legionella
     root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/legionella"
     dir_regex = re.compile(r"dg\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^FM\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
@@ -218,12 +275,14 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # Pseudomonas
     root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/Pseudomonasaeruginosa/done"
     dir_regex = re.compile(r"ab\d{4}.*")
     directories = seek_dirs(root, dir_regex)
-    
+    _progress(dir_count, len(tomograms), root)
+
     flagellum_regex = re.compile(r"^FM\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
     
@@ -233,11 +292,13 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # Proteus_mirabilis
     root = f"/grphome/grp_tomo_db1_d2/nobackup/archive/TomoDB1_d2/FlagellarMotor_P2/Proteus_mirabilis"
     dir_regex = re.compile(r"qya\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^FM\.mod$")
     tomogram_regex = re.compile(r".*\.rec$")
@@ -248,13 +309,15 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # ~~~ DRIVE 3 ~~~ #
     # Bdellovibrio
     root = f"/grphome/grp_tomo_db1_d3/nobackup/archive/TomoDB1_d3/jhome_extra/Bdellovibrio_YW"
     dir_regex = re.compile(r"yc\d{4}.*")
     directories = seek_dirs(root, dir_regex)
-    
+    _progress(dir_count, len(tomograms), root)
+
     flagellum_regex = re.compile(r"^flagellum_SIRT_1k\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
     
@@ -264,11 +327,13 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # Azospirillum
     root = f"/grphome/grp_tomo_db1_d3/nobackup/archive/TomoDB1_d3/jhome_extra/AzospirillumBrasilense/done"
     dir_regex = re.compile(r"ab\d{4}.*")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
     
     flagellum_regex = re.compile(r"^FM3\.mod$")
     tomogram_regex = re.compile(r".*SIRT_1k\.rec$")
@@ -279,6 +344,7 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     ### ANNOTATIONS BEYOND HERE ARE PRIVATE ###
     if not include_private:
@@ -288,7 +354,8 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
     dir_regex = re.compile(r"rrb\d{4}.*")
     directories = seek_dirs(root, dir_regex)
-    
+    _progress(dir_count, len(tomograms), root)
+
     flagellum_regex = re.compile(r"^flagellum\.mod$")
     tomogram_regex = re.compile(r".*\.rec$")
     
@@ -298,11 +365,13 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
 
     # ~~~ ANNOTATION PARTY ~~~ #
     root = f"/grphome/grp_tomo_db1_d4/nobackup/archive/ExperimentRuns/"
     dir_regex = re.compile(r"(sma\d{4}.*)|(Vibrio.*)")
     directories = seek_dirs(root, dir_regex)
+    _progress(dir_count, len(tomograms), root)
 
     flagellum_regex = re.compile(r"flagellar_motor\.mod")
     tomogram_regex = re.compile(r".*\.mrc$")
@@ -313,7 +382,9 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+    dir_count += 1
     
+    _progress(dir_count, len(tomograms), "")
     return tomograms
 
 
