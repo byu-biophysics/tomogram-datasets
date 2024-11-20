@@ -439,7 +439,7 @@ def seek_annotated_tomos(
         ) -> List[TomogramFile]:
     """
     Collect pairs of tomogram files and their corresponding annotation files,
-    without loading the tomograms.
+    without loading the tomograms. Expects one tomogram per directory.
 
     Args:
         directories (list of str): List of directories to search for tomograms
