@@ -1,1 +1,0 @@
-Make all_fm_tomograms() warn you if the directory doesn't exists
