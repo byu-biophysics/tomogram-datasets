@@ -9,7 +9,8 @@ from .annotation import AnnotationFile
 from .tomogram import TomogramFile
 
 from typing import List, Union, Optional
-
+import pdb
+from tqdm import tqdm
 import warnings
 
 def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
@@ -280,6 +281,12 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
     )
     tomograms += these_tomograms
 
+    # ~~~ NEGATIVES BRAXTON FOUND ON RANDY DATA ~~~ #
+    #pdb.set_trace()
+    root = f"/grphome/grp_tomo_db1_d3/nobackup/autodelete/negative_data"
+    these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in tqdm(os.listdir(root))]
+    tomograms += these_tomograms
+
     ### ANNOTATIONS BEYOND HERE ARE PRIVATE ###
     if not include_private:
         return tomograms
@@ -313,7 +320,7 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
-    
+
     return tomograms
 
 
