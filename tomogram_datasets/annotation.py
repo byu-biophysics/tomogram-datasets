@@ -95,7 +95,6 @@ class AnnotationFile(Annotation):
                 df = df.rename(columns={'center_x': 'x', 'center_y': 'y', 'center_z': 'z'})
             return df
         except Exception as e:
-            print(f"Attempt with 'annotation=slicer_angles' failed: {e}")
             # Fallback attempt without the 'annotation' parameter
             return imodmodel.read(filepath)
     
