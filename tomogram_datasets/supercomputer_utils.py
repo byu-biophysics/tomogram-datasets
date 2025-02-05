@@ -79,21 +79,20 @@ class SCTomogramSet():
                 requested_tomograms.append(self.tomograms[label])
         return requested_tomograms
 
-def get_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
+def get_fm_tomogram_set() -> SCTomogramSet:
     """
     Collect all tomograms that have been reviewed for flagellar motors from
-    BYU's supercomputer. 
+    BYU's supercomputer into an SCTomogramSet. 
     
+    From an SCTomogramSet `tomo_set`, get public tomograms with
+    `tomo_set.get_public_tomograms()`.
+
     Does not initially load the tomogram image data. Given a `Tomogram` called
     `tomo`, one can load and access the image data in one step with
     `tomo.get_data()`.
 
-    Args:
-        include_private (bool): Whether to include our newest annotations, which
-        should not be available to the public. Defaults to False.
-
     Returns:
-        TomogramFile objects with their annotations, if present.
+        SCTomogramSet containing annotated tomograms
     """
     # Collect all tomograms together into an SCTomogramSet.
     tomogram_set = SCTomogramSet()
