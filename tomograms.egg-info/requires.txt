@@ -1,6 +1,0 @@
-numpy
-scikit-image
-mrcfile
-imodmodel
-pandas
-cryoet-data-portal
