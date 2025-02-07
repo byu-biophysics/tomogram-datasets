@@ -1,0 +1,21 @@
+site_name: tomogram_datasets  
+repo_url: https://github.com/byu-biophysics/tomogram-datasets
+
+docs_dir: 'docs'
+
+nav:
+  - 'index.md'
+  - 'tomogram.md'
+  - 'annotation.md'
+  - 'subtomogram.md'
+  - 'supercomputer_utils.md'
+
+theme: readthedocs
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          docstring_style: google
+  - search
+  
