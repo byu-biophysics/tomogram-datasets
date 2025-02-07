@@ -115,5 +115,5 @@ def test_voxel_spacing():
     assert isinstance(vs, (float, tuple, np.ndarray))
 
 def test_get_shape_from_annotations():
-    # TODO. Need a small tomogram with annotation
+    # TODO. Need a small tomogram with annotation.
     pass
