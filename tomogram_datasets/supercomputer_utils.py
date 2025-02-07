@@ -12,25 +12,95 @@ from typing import List, Union, Optional
 import pdb
 from tqdm import tqdm
 import warnings
+warnings.simplefilter("ignore") # Don't really need to deal with warnings right now.
 
-def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
+def _combine_tomos(tomo1: TomogramFile, tomo2: TomogramFile) -> TomogramFile:
+    """ 
+    Combines two conceivably duplicate tomograms into one by merging their
+    annotations. All other attributes are taken from `tomo1`, like filepath
+    and such.
     """
-    Collect all pairs of `.rec` tomogram filepaths and flagellar motor `.mod`
-    filepaths.
+    # Ensure that each tomogram has a list for its annotations, even if it is
+    # empty
+    if tomo1.annotations is None: 
+        tomo1.annotations = []
+    if tomo2.annotations is None: 
+        tomo2.annotations = []
+    # Combine annotations
+    combined_annotations = tomo1.annotations + tomo2.annotations
+    new_tomo = tomo1
+    new_tomo.annotations = combined_annotations
+    # Choose shortest filepath
+    new_tomo.filepath = min(tomo1.filepath, tomo2.filepath, key=len)
+    return new_tomo
+
+def _get_label(tomo: TomogramFile) -> str:
+    """ Tomogram "labels" are the filename without path nor extension. """
+    return os.path.splitext(os.path.basename(tomo.filepath))[0]
+
+class SCTomogramSet():
+    """ A class to manage the tomograms we work with on the supercomputer. """
+    def __init__(self):
+        self.tomograms = dict()
+        self.private = dict()
+    def __repr__(self):
+        return f'<SCTomogramSet containing {len(self.tomograms)} tomograms>'
+    def append(self, new_tomogram: TomogramFile, private: bool):
+        """ Add a tomogram to the set. """
+        label = _get_label(new_tomogram)
+        # If the tomogram isn't present, add it
+        if label not in self.tomograms:
+            self.tomograms[label] = new_tomogram
+            self.private[label] = private
+        # Otherwise, combine its annotations with the existing tomogram's
+        # annotations. 
+        else:
+            self.tomograms[label] = _combine_tomos(self.tomograms[label], new_tomogram)
+            # If two matching tomograms have different privacy, make them both public
+            if self.private[label] != private:
+                self.private[label] = False
+
+    def get_all_tomograms(self) -> List[TomogramFile]:
+        """ Get all of the supercomputer tomograms. """
+        return self.tomogram.values()
+    def get_private_tomograms(self) -> List[TomogramFile]:
+        """ Get all of the private (test) supercomputer tomograms. """
+        requested_tomograms = []
+        for label in self.tomograms:
+            if self.private[label]:
+                requested_tomograms.append(self.tomograms[label])
+        return requested_tomograms
+    def get_public_tomograms(self) -> List[TomogramFile]:
+        """ Get all of the public (train) supercomputer tomograms. """
+        requested_tomograms = []
+        for label in self.tomograms:
+            if not self.private[label]:
+                requested_tomograms.append(self.tomograms[label])
+        return requested_tomograms
+
+def get_fm_tomogram_set() -> SCTomogramSet:
+    """
+    Collect all tomograms that have been reviewed for flagellar motors from
+    BYU's supercomputer into an SCTomogramSet. 
+    
+    From an SCTomogramSet `tomo_set`, get public tomograms with
+    `tomo_set.get_public_tomograms()`.
 
     Does not initially load the tomogram image data. Given a `Tomogram` called
     `tomo`, one can load and access the image data in one step with
     `tomo.get_data()`.
 
-    Args:
-        include_private (bool): Whether to include our newest annotations, which
-        should not be available to the public. Defaults to False.
-
     Returns:
-        TomogramFile objects with their annotations.
+        SCTomogramSet containing annotated tomograms
     """
-    tomograms = []
-    
+    # Collect all tomograms together into an SCTomogramSet.
+    tomogram_set = SCTomogramSet()
+    print(type(tomogram_set))
+
+    tomograms = [] # A temporary list to collect tomograms. To be placed into the tomogram_set later.
+
+    ### PUBLIC POSITIVES ###
+    print(f'\nLoading public positives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
     # ~~~ DRIVE 1 ~~~ #
     # Hylemonella
     root = f"/grphome/grp_tomo_db1_d1/nobackup/archive/TomoDB1_d1/FlagellarMotor_P1/Hylemonella gracilis"
@@ -130,10 +200,13 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
     )
     tomograms += these_tomograms
 
-    ### ANNOTATIONS BEYOND HERE ARE PRIVATE ###
-    if not include_private:
-        return tomograms
-
+    # Add tomograms to `tomogram_set` and reset the temporary collection list `tomograms`
+    for tomo in tomograms:
+        tomogram_set.append(tomo, private=False)
+    tomograms = []
+    
+    print(f'Loading private positives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
+    ### PRIVATE POSITIVES ###
     # ~~~ ZHIPING ~~~ #
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
     dir_regex = re.compile(r"rrb\d{4}.*")
@@ -165,29 +238,14 @@ def all_fm_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
         ["Flagellar Motor"]
     )
     tomograms += these_tomograms
-    
-    return tomograms
 
-def all_fm_negative_tomograms(*, include_private: bool = False) -> List[TomogramFile]:
-    """
-    Collect all `.rec` tomogram filepaths that have (probably, for now) been
-    reviewed and do not have flagellar motors.
-
-    Does not initially load the tomogram image data. Given a `Tomogram` called
-    `tomo`, one can load and access the image data in one step with
-    `tomo.get_data()`.
-
-    **IN DEVELOPMENT** These results need to be manually checked.
-
-    Args:
-        include_private (bool): Whether to include our newest annotations, which
-        should not be available to the public. Defaults to False.
-
-    Returns:
-        TomogramFile objects with no annotations attached.
-    """
+    # Add tomograms to `tomogram_set` and reset the temporary collection list `tomograms`
+    for tomo in tomograms:
+        tomogram_set.append(tomo, private=True)
     tomograms = []
-    
+
+    print(f'Loading public negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
+    ### PUBLIC NEGATIVES ###
     # ~~~ DRIVE 1 ~~~ #
     # Hylemonella
     root = f"/grphome/grp_tomo_db1_d1/nobackup/archive/TomoDB1_d1/FlagellarMotor_P1/Hylemonella gracilis"
@@ -280,17 +338,19 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         [flagellum_regex]
     )
     tomograms += these_tomograms
+
+    # Add tomograms to `tomogram_set` and reset the temporary collection list `tomograms`
+    for tomo in tomograms:
+        tomogram_set.append(tomo, private=False)
+    tomograms = []
 
     # ~~~ NEGATIVES BRAXTON FOUND ON RANDY DATA ~~~ #
-    #pdb.set_trace()
     root = f"/grphome/grp_tomo_db1_d3/nobackup/autodelete/negative_data"
-    these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in tqdm(os.listdir(root))]
+    these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in os.listdir(root)]
     tomograms += these_tomograms
 
-    ### ANNOTATIONS BEYOND HERE ARE PRIVATE ###
-    if not include_private:
-        return tomograms
-
+    print(f'Loading private negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
+    ### PRIVATE NEGATIVES ###
     # ~~~ ZHIPING ~~~ #
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
     dir_regex = re.compile(r"rrb\d{4}.*")
@@ -319,9 +379,17 @@ def all_fm_negative_tomograms(*, include_private: bool = False) -> List[Tomogram
         tomogram_regex, 
         [flagellum_regex]
     )
-    tomograms += these_tomograms
+    tomograms += these_tomograms 
 
-    return tomograms
+    # Add tomograms to `tomogram_set` and reset the temporary collection list `tomograms`
+    for tomo in tomograms:
+        tomogram_set.append(tomo, private=True)
+    tomograms = []   
+
+    print(f'Loading complete.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
+
+    # Return the completed set
+    return tomogram_set
 
 
 def seek_file(directory: str, regex: re.Pattern) -> Union[str, None]:
