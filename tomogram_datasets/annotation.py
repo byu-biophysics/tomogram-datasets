@@ -156,5 +156,3 @@ class AnnotationFile(Annotation):
         AnnotationFile.check_ext(self.filepath, ".mod")
         header = ImodModel.from_file(self.filepath).header
         return np.array([header.zmax, header.xmax, header.ymax])
-
-    

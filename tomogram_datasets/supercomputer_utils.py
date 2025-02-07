@@ -55,7 +55,6 @@ class SCTomogramSet():
         # Otherwise, combine its annotations with the existing tomogram's
         # annotations. 
         else:
-            self.duplicates.append(new_tomogram)
             self.tomograms[label] = _combine_tomos(self.tomograms[label], new_tomogram)
             # If two matching tomograms have different privacy, make them both public
             if self.private[label] != private:
@@ -101,7 +100,7 @@ def get_fm_tomogram_set() -> SCTomogramSet:
     tomograms = [] # A temporary list to collect tomograms. To be placed into the tomogram_set later.
 
     ### PUBLIC POSITIVES ###
-    print(f'\nLoading public positives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}')
+    print(f'\nLoading public positives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
     # ~~~ DRIVE 1 ~~~ #
     # Hylemonella
     root = f"/grphome/grp_tomo_db1_d1/nobackup/archive/TomoDB1_d1/FlagellarMotor_P1/Hylemonella gracilis"
@@ -206,7 +205,7 @@ def get_fm_tomogram_set() -> SCTomogramSet:
         tomogram_set.append(tomo, private=False)
     tomograms = []
     
-    print(f'\n\n\n\nLoading private positives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}')
+    print(f'Loading private positives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
     ### PRIVATE POSITIVES ###
     # ~~~ ZHIPING ~~~ #
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
@@ -245,7 +244,7 @@ def get_fm_tomogram_set() -> SCTomogramSet:
         tomogram_set.append(tomo, private=True)
     tomograms = []
 
-    print(f'\n\n\nLoading public negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}')
+    print(f'Loading public negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
     ### PUBLIC NEGATIVES ###
     # ~~~ DRIVE 1 ~~~ #
     # Hylemonella
@@ -350,7 +349,7 @@ def get_fm_tomogram_set() -> SCTomogramSet:
     these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in os.listdir(root)]
     tomograms += these_tomograms
 
-    print(f'\n\nLoading private negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}')
+    print(f'Loading private negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
     ### PRIVATE NEGATIVES ###
     # ~~~ ZHIPING ~~~ #
     root = f"/grphome/fslg_imagseg/nobackup/archive/zhiping_data/caulo_WT/"
@@ -387,7 +386,7 @@ def get_fm_tomogram_set() -> SCTomogramSet:
         tomogram_set.append(tomo, private=True)
     tomograms = []   
 
-    print(f'\nLoading complete.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}')
+    print(f'Loading complete.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
 
     # Return the completed set
     return tomogram_set
