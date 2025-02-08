@@ -45,7 +45,15 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic usage</a>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#loading-annotated-tomograms">Loading annotated tomograms</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#working-with-annotated-tomograms-in-a-jupyter-notebook">Working with annotated tomograms in a Jupyter notebook</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#basic-file-loading">Basic file loading</a>
         <ul>
@@ -101,12 +109,70 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="tomogram_datasets">tomogram_datasets</h1>
-<p>Welcome to the documentation for the <code>tomogram_datasets</code> module. This module simplifies tasks dealing with tomograms and their respective annotations. In particular, it is useful in the <a href="https://byu-biophysics.github.io/">BYU Biophysics Group</a> as a tool to easily access tomograms on BYU's supercomputer (see <a href="/supercomputer_utils">Supercomputer utils</a>).</p>
+<p>Welcome to the documentation for the <code>tomogram_datasets</code> module. This module simplifies tasks dealing with tomograms and their respective annotations. In particular, it is useful in the <a href="https://byu-biophysics.github.io/">BYU Biophysics Group</a> as a tool to easily access tomograms on BYU's supercomputer (see <a href="supercomputer_utils">Supercomputer Utils</a>).</p>
 <h2 id="installation">Installation</h2>
 <p>Install with pip:</p>
 <pre><code class="language-shell">pip install git+https://github.com/byu-biophysics/tomogram-datasets.git
 </code></pre>
-<h2 id="basic-usage">Basic usage</h2>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="loading-annotated-tomograms">Loading annotated tomograms</h3>
+<p>While in a supercomputer session, load all tomograms with their respective annotations with the following code:</p>
+<pre><code class="language-python">from tomogram_datasets import get_fm_tomogram_set
+
+tomogram_set = get_fm_tomogram_set() # Returns an SCTomogramSet object. See &quot;Supercomputer Utils&quot;
+train_set = tomogram_set.get_public_tomograms()  # These tomograms are publicly available. Most are also on the CryoET Data Portal
+test_set = tomogram_set.get_private_tomograms()  # These tomograms are reserved for the test set on Kaggle. Sensitive data
+
+for tomogram in train_set: # train_set is a list of TomogramFile objects. See &quot;Tomograms&quot;
+    # Access tomogram array shape as numpy array
+    tomo_shape = tomogram.shape
+    # Access tomogram array data as a numpy array
+    tomo_data = tomogram.get_data()
+    # Access all annotation points. They're all flagellar motors, since they came from get_fm_tomogram_set()
+    tomo_annotation_points = tomogram.annotation_points()
+    # Access all Annotation objects attached to this tomogram.
+    tomo_annotations = tomogram.annotations
+</code></pre>
+<p>Be aware that the first time <code>get_fm_tomogram_set()</code> is called, it may take a couple of minutes to find all of the tomograms (it tends to take no more than 30 seconds the second time). This is something that ought to be optimized in the future.</p>
+<h3 id="working-with-annotated-tomograms-in-a-jupyter-notebook">Working with annotated tomograms in a Jupyter notebook</h3>
+<p>Paired with <a href="https://github.com/mward19/visualize_voxels">visualize_voxels</a>, one can analyze our tomograms within the convenience of a Python Jupyter notebook. The following code loads our public tomograms, singles out those with more than four annotation points (flagellar motors, in this case), and displays the tomogram with the annotation points plotted in the tomogram.</p>
+<pre><code class="language-python">from tomogram_datasets import get_fm_tomogram_set
+from visualize_voxels import visualize
+
+# Load tomograms
+tomogram_set = get_fm_tomogram_set()
+train_set = tomogram_set.get_public_tomograms()
+
+# Find tomograms with more than four annotation points (motors)
+tomograms_with_motors = [tomo for tomo in train_set if tomo.annotations is not None]
+tomograms_with_many_motors = [tomo for tomo in tomograms_with_motors if len(tomo.annotation_points()) &gt; 4]
+</code></pre>
+<pre><code class="language-python"># Get a quick visualization the last tomogram found with more than four motors along with the motor locations
+tomogram_to_visualize = tomograms_with_many_motors[-1]
+motors = tomogram_to_visualize.annotation_points()
+
+# This may take a moment, since it has to load the tomogram's array data
+visualize(tomogram_to_visualize.get_data(), marks=motors)
+</code></pre>
+<pre><code class="language-python"># One way to get a more exciting visualization
+visualize(
+    # TomogramFile.get_data() yields a numpy array. In get_data, set preprocess=False for faster loading but a very poor visualization
+    tomogram_to_visualize.get_data(), 
+    # Save as lots_of_motors.gif
+    'lots_of_motors.gif',
+    # Points to mark in the visualization
+    marks = motors, 
+    # Plot 150 of the layers in the tomogram, evenly spaced
+    slices=150,
+    # Display at 15 frames per second
+    fps=15,
+    # Set the title
+    title=f'{len(motors)} flagellar motors!'
+)
+</code></pre>
+<p>The last cell above yields the following visualization, which one can pause and move frame-by-frame interactively in a Jupyter notebook.</p>
+<p><img alt="10 motors" src="images/lots_of_motors.gif" /></p>
+<h2 id="usage">Usage</h2>
 <h3 id="basic-file-loading">Basic file loading</h3>
 <h4 id="loading-a-tomogram">Loading a tomogram</h4>
 <p>Assume a tomogram is located at <code>/tmp/tomogram-data/qya2015-11-19-2/atlas10003.mrc</code>.</p>
@@ -227,5 +293,5 @@ tomograms = seek_annotated_tomos(
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-02-07 22:56:57.846416+00:00
+Build Date UTC : 2025-02-08 01:49:44.833703+00:00
 -->
