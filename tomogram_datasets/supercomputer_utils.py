@@ -95,7 +95,6 @@ def get_fm_tomogram_set() -> SCTomogramSet:
     """
     # Collect all tomograms together into an SCTomogramSet.
     tomogram_set = SCTomogramSet()
-    print(type(tomogram_set))
 
     tomograms = [] # A temporary list to collect tomograms. To be placed into the tomogram_set later.
 

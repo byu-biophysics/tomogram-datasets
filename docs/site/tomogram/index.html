@@ -127,6 +127,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="tomograms">Tomograms</h1>
+<p>tomogram_datasets has two classes to represent a tomogram&mdash;<code>Tomogram</code> and <code>TomogramFile</code>, which is a specific kind of tomogram that comes from a file. One can load a tomogram from its filepath with <code>tomogram = tomogram_datasets.Tomogram(filepath)</code>, and get the tomogram's array data with <code>tomogram.get_data()</code>. Tomograms are often associated with <a href="../annotation/">Annotations</a> in the <code>Tomogram.annotations</code> attribute.</p>
+<p>See more details below.</p>
 
 
 <div class="doc doc-object doc-module">
@@ -1146,7 +1148,7 @@ tomogram data from files of specific formats.</p>
 <span class="sd">        Returns:</span>
 <span class="sd">            The array data of the tomogram. In other words, returns the image.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">preprocess</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1513,7 +1515,7 @@ loading. Defaults to True.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        The array data of the tomogram. In other words, returns the image.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
