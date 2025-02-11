@@ -546,15 +546,11 @@ def seek_unannotated_tomos(
     tomograms.
 
     Args:
-        directories (list of str): List of directories to search for tomograms
-        and annotations.
+        directories (list of str): List of directories to search for tomograms and annotations.
         
         tomo_regex (re.Pattern): The regex pattern to match tomogram filenames.
         
-        annotation_regexes (list of re.Pattern): A list of regex patterns. If
-        any of these patterns find a match for one of the files in a given
-        directory in `directories`, the tomogram in that directory will not be
-        saved and returned. 
+        annotation_regexes (list of re.Pattern): A list of regex patterns. If any of these patterns find a match for one of the files in a given directory in `directories`, the tomogram in that directory will not be saved and returned. 
 
     Returns:
         TomogramFile objects.

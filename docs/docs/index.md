@@ -1,6 +1,6 @@
 # tomogram_datasets
 
-Welcome to the documentation for the `tomogram_datasets` module. This module simplifies tasks dealing with tomograms and their respective annotations. In particular, it is useful in the [BYU Biophysics Group](https://byu-biophysics.github.io/) as a tool to easily access tomograms on BYU's supercomputer (see [Supercomputer Utils](supercomputer_utils)).
+Welcome to the documentation for the `tomogram_datasets` module. This module simplifies tasks dealing with tomograms and their respective annotations. In particular, it is useful in the [BYU Biophysics Group](https://byu-biophysics.github.io/) as a tool to easily access tomograms on BYU's supercomputer (see [Supercomputer Utilities](/supercomputer_utils)).
 
 ## Installation
 Install with pip:
@@ -16,7 +16,7 @@ While in a supercomputer session, load all tomograms with their respective annot
 ```python
 from tomogram_datasets import get_fm_tomogram_set
 
-tomogram_set = get_fm_tomogram_set() # Returns an SCTomogramSet object. See "Supercomputer Utils"
+tomogram_set = get_fm_tomogram_set() # Returns an SCTomogramSet object. See "Supercomputer Utilities"
 train_set = tomogram_set.get_public_tomograms()  # These tomograms are publicly available. Most are also on the CryoET Data Portal
 test_set = tomogram_set.get_private_tomograms()  # These tomograms are reserved for the test set on Kaggle. Sensitive data
 
