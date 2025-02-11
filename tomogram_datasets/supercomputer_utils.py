@@ -396,12 +396,11 @@ def seek_file(directory: str, regex: re.Pattern) -> Union[str, None]:
     directory.
 
     Args:
-        directory (str): The root directory to start the search. regex
+        directory (str): The root directory to start the search. 
         regex (re.Pattern): The regex pattern to match the filenames.
 
     Returns:
-        The full path of the matching file, or None if no match is
-        found.
+        The full path of the matching file, or None if no match is found.
     """
     for root, dirs, files in os.walk(directory):
         for file in files:
@@ -426,9 +425,7 @@ def seek_files(
         
         regex (re.Pattern): The regex pattern to match the filenames.
 
-        files (list, optional): A list to accumulate matched files.
-        Should not be set in general usage, as this is used only for internal
-        recursion. Defaults to None.
+        files (list, optional): A list to accumulate matched files. Should not be set in general usage, as this is used only for internal recursion. Defaults to None.
 
     Returns:
         A list of the full paths of each matching file.
@@ -456,9 +453,7 @@ def seek_dirs(
 
         regex (re.Pattern): The regex pattern to match the directory names.
         
-        directories (list, optional): A list to accumulate matched directories.
-        Should not be set in general usage, as this is used only for internal
-        recursion. Defaults to None.
+        directories (list, optional): A list to accumulate matched directories. Should not be set in general usage, as this is used only for internal recursion. Defaults to None.
 
     Returns:
         A list of paths of matching directories.
@@ -485,9 +480,7 @@ def seek_set(
 
         regexes (list of re.Pattern): A list of regex patterns to match filenames.
 
-        matches (list, optional): A list to accumulate matches. Should not be
-        set in general usage, as this is used only for internal recursion.
-        Defaults to None.
+        matches (list, optional): A list to accumulate matches. Should not be set in general usage, as this is used only for internal recursion. Defaults to None.
 
     Returns:
         A list of matching file paths or None if extra matches are found.
@@ -516,13 +509,11 @@ def seek_annotated_tomos(
     without loading the tomograms. Expects one tomogram per directory.
 
     Args:
-        directories (list of str): List of directories to search for tomograms
-        and annotations.
+        directories (list of str): List of directories to search for tomograms and annotations.
         
         tomo_regex (re.Pattern): The regex pattern to match tomogram filenames.
         
-        annotation_regexes (list of re.Pattern): A list of regex patterns to
-        match annotation filenames.
+        annotation_regexes (list of re.Pattern): A list of regex patterns to match annotation filenames.
         
         annotation_names (list of str): A list of names for the annotations.
 

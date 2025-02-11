@@ -18,12 +18,9 @@ class Tomogram:
     class.
 
     Attributes:
-        annotations (list of Annotation): Annotations corresponding to this
-            tomogram.
-        data (numpy.ndarray): A 3-dimensional array containing the
-            tomogram image. 
-        shape (numpy.ndarray): A 3-element array representing the shape of the
-            tomogram data.
+        annotations (list of Annotation): Annotations corresponding to this tomogram.
+        data (numpy.ndarray): A 3-dimensional array containing the tomogram image. 
+        shape (numpy.ndarray): A 3-element array representing the shape of the tomogram data.
    
     """
     def __init__(self, data: np.ndarray, annotations: Optional[List[Annotation]] = None):
@@ -31,8 +28,7 @@ class Tomogram:
 
         Args:
             data (numpy.ndarray): A 3-dimensional array containing the tomogram image.
-            annotations (list of Annotation, optional): A list of annotations
-                corresponding to the tomogram. Defaults to None.
+            annotations (list of Annotation, optional): A list of annotations corresponding to the tomogram. Defaults to None.
         """
         self.annotations = [] if annotations is None else annotations
         self.data = data
@@ -42,8 +38,7 @@ class Tomogram:
         """Add an annotation to the tomogram.
 
         Args:
-            annotation (Annotation): An annotation object to be added to
-                the tomogram's annotations.
+            annotation (Annotation): An annotation object to be added to the tomogram's annotations.
         """
         self.annotations.append(annotation)
     
@@ -55,13 +50,10 @@ class Tomogram:
         annotations if no index is given.
 
         Args:
-            annotation_index (int, optional): The index of the annotation
-                from which to retrieve points. If None, retrieves points
-                from all annotations. Defaults to None.
+            annotation_index (int, optional): The index of the annotation from which to retrieve points. If None, retrieves points from all annotations. Defaults to None.
 
         Returns:
-            A list of points from the specified annotation or
-                all annotations.
+            A list of points from the specified annotation or all annotations.
         """
         if annotation_index is not None:
             return self.annotations[annotation_index].points
@@ -108,11 +100,8 @@ class TomogramFile(Tomogram):
 
         Args:
             filepath (str): The file path to the tomogram file.
-            annotations (list of Annotation, optional): Annotations
-                corresponding to the tomogram. Defaults to None.
-            load (bool, optional): Whether to load tomogram array data
-                immediately. Defaults to True. If False, use self.load() when
-                ready to load data.
+            annotations (list of Annotation, optional): Annotations corresponding to the tomogram. Defaults to None.
+            load (bool, optional): Whether to load tomogram array data immediately. Defaults to True. If False, use self.load() when ready to load data.
         """
         self.data = None
         self.annotations = annotations
@@ -130,8 +119,7 @@ class TomogramFile(Tomogram):
         the data accordingly.
     
         Args:
-            preprocess (bool, optional): Whether to preprocess the data after
-                loading. Defaults to True.
+            preprocess (bool, optional): Whether to preprocess the data after loading. Defaults to True.
     
         Returns:
             The loaded tomogram data.
@@ -194,8 +182,7 @@ class TomogramFile(Tomogram):
         this method loads it and then returns the loaded array.
 
         Args:
-            preprocess (bool, optional): Whether to preprocess the data after
-                loading. Defaults to True.
+            preprocess (bool, optional): Whether to preprocess the data after loading. Defaults to True.
         
         Returns:
             The array data of the tomogram. In other words, returns the image.
@@ -208,12 +195,10 @@ class TomogramFile(Tomogram):
         loaded, this method loads it and then returns the loaded array shape.
 
         Args:
-            preprocess (bool, optional): Whether to preprocess the data after
-                loading. Defaults to True.
+            preprocess (bool, optional): Whether to preprocess the data after loading. Defaults to True.
         
         Returns:
-            The data array shape of the tomogram. In other words, returns the
-            image's dimensions.
+            The data array shape of the tomogram. In other words, returns the image's dimensions.
         """
         return self.shape
     
@@ -318,14 +303,12 @@ class TomogramFile(Tomogram):
         exception.
 
         Returns:
-            The shape of the tomogram as inferred from
-            self.annotations.
+            The shape of the tomogram as inferred from self.annotations.
 
         Raises:
             Exception: If no AnnotationFile objects are in self.annotations.
 
-            Exception: If there are multiple AnnotationFile objects in
-            self.annotations and they imply inconsistent shapes.
+            Exception: If there are multiple AnnotationFile objects in self.annotations and they imply inconsistent shapes.
         """
         shapes = []
         for annotation in self.annotations:

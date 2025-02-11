@@ -80,8 +80,7 @@ class AnnotationFile(Annotation):
             filepath (str): File to convert.
 
         Returns:
-            DataFrame of the annotation file with center_x, center_y, center_z renamed to
-            x, y, z if annotation='slicer_angles'.
+            DataFrame of the annotation file with center_x, center_y, center_z renamed to x, y, z if annotation='slicer_angles'.
 
         Raises:
             IOError: If the file extension is not .mod.

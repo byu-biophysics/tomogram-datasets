@@ -11,8 +11,7 @@ def _in_bounds(shape: np.ndarray, point: np.ndarray) -> bool:
     `shape`.
 
     Args:
-        shape (np.ndarray): The shape of the array. point (np.ndarray): The
-        point to check.
+        shape (np.ndarray): The shape of the array. point (np.ndarray): The point to check.
 
     Returns:
         True if the point is within bounds, False otherwise.
@@ -27,11 +26,9 @@ class Subtomogram(Tomogram):
     A class representing a subtomogram extracted from a parent tomogram.
 
     Attributes:
-        parent_tomogram (Tomogram): The tomogram from which this subtomogram was
-        created.
+        parent_tomogram (Tomogram): The tomogram from which this subtomogram was created.
 
-        lower_bounds (np.ndarray): The lower bounds of the subtomogram as they
-        would be indexed in the parent tomogram.
+        lower_bounds (np.ndarray): The lower bounds of the subtomogram as they would be indexed in the parent tomogram.
 
         data (np.ndarray): The 3D data of the subtomogram.
 
@@ -90,11 +87,9 @@ class SubtomogramGenerator:
     Attributes:
         tomogram (Tomogram): The parent tomogram to sample from.
 
-        annotations (List[Annotation]): The annotations from the parent
-        tomogram.
+        annotations (List[Annotation]): The annotations from the parent tomogram.
 
-        vol_shape (Tuple[int, int, int]): The shape of the volumes to be
-        generated.
+        vol_shape (Tuple[int, int, int]): The shape of the volumes to be generated.
 
         pads (Tuple[int, int, int]): The padding to apply to the boundaries.
 
@@ -133,8 +128,7 @@ class SubtomogramGenerator:
         self.tomogram's annotations is selected.
 
         Args:
-            point (Optional[np.ndarray]): The point to include in the
-            subtomogram. Defaults to None.
+            point (Optional[np.ndarray]): The point to include in the subtomogram. Defaults to None.
 
         Returns:
             The newly created subtomogram.
@@ -169,8 +163,7 @@ class SubtomogramGenerator:
             The newly created subtomogram.
 
         Raises:
-            Exception: If unable to find a valid subtomogram without annotation
-            points after 1000 attempts.
+            Exception: If unable to find a valid subtomogram without annotation points after 1000 attempts.
         """
         # Generate completely random bounds until one has no annotations
         maxiter = 1000
