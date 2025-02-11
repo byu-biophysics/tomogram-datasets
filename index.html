@@ -109,7 +109,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="tomogram_datasets">tomogram_datasets</h1>
-<p>Welcome to the documentation for the <code>tomogram_datasets</code> module. This module simplifies tasks dealing with tomograms and their respective annotations. In particular, it is useful in the <a href="https://byu-biophysics.github.io/">BYU Biophysics Group</a> as a tool to easily access tomograms on BYU's supercomputer (see <a href="supercomputer_utils">Supercomputer Utils</a>).</p>
+<p>Welcome to the documentation for the <code>tomogram_datasets</code> module. This module simplifies tasks dealing with tomograms and their respective annotations. In particular, it is useful in the <a href="https://byu-biophysics.github.io/">BYU Biophysics Group</a> as a tool to easily access tomograms on BYU's supercomputer (see <a href="/supercomputer_utils">Supercomputer Utilities</a>).</p>
 <h2 id="installation">Installation</h2>
 <p>Install with pip:</p>
 <pre><code class="language-shell">pip install git+https://github.com/byu-biophysics/tomogram-datasets.git
@@ -119,7 +119,7 @@
 <p>While in a supercomputer session, load all tomograms with their respective annotations with the following code:</p>
 <pre><code class="language-python">from tomogram_datasets import get_fm_tomogram_set
 
-tomogram_set = get_fm_tomogram_set() # Returns an SCTomogramSet object. See &quot;Supercomputer Utils&quot;
+tomogram_set = get_fm_tomogram_set() # Returns an SCTomogramSet object. See &quot;Supercomputer Utilities&quot;
 train_set = tomogram_set.get_public_tomograms()  # These tomograms are publicly available. Most are also on the CryoET Data Portal
 test_set = tomogram_set.get_private_tomograms()  # These tomograms are reserved for the test set on Kaggle. Sensitive data
 
@@ -235,5 +235,5 @@ tomogram = TomogramFile(path)
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-02-11 02:54:57.232348+00:00
+Build Date UTC : 2025-02-11 02:56:37.018617+00:00
 -->
