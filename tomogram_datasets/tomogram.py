@@ -33,6 +33,10 @@ class Tomogram:
         self.annotations = [] if annotations is None else annotations
         self.data = data
         self.shape = data.shape
+
+    def is_annotated(self) -> bool:
+        """ Check if the tomogram has any annotations attached to it. """
+        return self.annotations is not None and len(self.annotations) > 0
     
     def add_annotation(self, annotation: Annotation):
         """Add an annotation to the tomogram.

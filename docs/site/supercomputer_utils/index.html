@@ -1979,7 +1979,7 @@ tomograms.</p>
                   (<code>list of str</code>)
               –
               <div class="doc-md-description">
-                <p>List of directories to search for tomograms</p>
+                <p>List of directories to search for tomograms and annotations.</p>
               </div>
             </li>
             <li>
@@ -1995,7 +1995,7 @@ tomograms.</p>
                   (<code>list of re.Pattern</code>)
               –
               <div class="doc-md-description">
-                <p>A list of regex patterns. If</p>
+                <p>A list of regex patterns. If any of these patterns find a match for one of the files in a given directory in <code>directories</code>, the tomogram in that directory will not be saved and returned. </p>
               </div>
             </li>
         </ul>
@@ -2072,11 +2072,7 @@ tomograms.</p>
 <span class="normal">580</span>
 <span class="normal">581</span>
 <span class="normal">582</span>
-<span class="normal">583</span>
-<span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">seek_unannotated_tomos</span><span class="p">(</span>
+<span class="normal">583</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">seek_unannotated_tomos</span><span class="p">(</span>
             <span class="n">directories</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> 
             <span class="n">tomo_regex</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">,</span> 
             <span class="n">annotation_regexes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">],</span> 
@@ -2086,15 +2082,11 @@ tomograms.</p>
 <span class="sd">    tomograms.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        directories (list of str): List of directories to search for tomograms</span>
-<span class="sd">        and annotations.</span>
+<span class="sd">        directories (list of str): List of directories to search for tomograms and annotations.</span>
 
 <span class="sd">        tomo_regex (re.Pattern): The regex pattern to match tomogram filenames.</span>
 
-<span class="sd">        annotation_regexes (list of re.Pattern): A list of regex patterns. If</span>
-<span class="sd">        any of these patterns find a match for one of the files in a given</span>
-<span class="sd">        directory in `directories`, the tomogram in that directory will not be</span>
-<span class="sd">        saved and returned. </span>
+<span class="sd">        annotation_regexes (list of re.Pattern): A list of regex patterns. If any of these patterns find a match for one of the files in a given directory in `directories`, the tomogram in that directory will not be saved and returned. </span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        TomogramFile objects.</span>

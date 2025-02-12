@@ -45,8 +45,8 @@ class SCTomogramSet():
         self.private = dict()
     def __repr__(self):
         return f'<SCTomogramSet containing {len(self.tomograms)} tomograms>'
-    def append(self, new_tomogram: TomogramFile, private: bool):
-        """ Add a tomogram to the set. """
+    def append(self, new_tomogram: TomogramFile, private: bool = True):
+        """ Add a tomogram to the set. Assume it is private if `private` is not set. """
         label = _get_label(new_tomogram)
         # If the tomogram isn't present, add it
         if label not in self.tomograms:
@@ -77,6 +77,26 @@ class SCTomogramSet():
             if not self.private[label]:
                 requested_tomograms.append(self.tomograms[label])
         return requested_tomograms
+
+    def get_annotated_public_tomograms(self):
+        """ Get all public supercomputer tomograms that have annotations. """
+        requested_tomograms = self.get_public_tomograms()
+        return [tomo for tomo in requested_tomograms if tomo.has_annotation()]
+    
+    def get_unannotated_public_tomograms(self):
+        """ Get all public supercomputer tomograms that have no annotations. """
+        requested_tomograms = self.get_public_tomograms()
+        return [tomo for tomo in requested_tomograms if not tomo.has_annotation()]
+    
+    def get_annotated_private_tomograms(self):
+        """ Get all private supercomputer tomograms that have annotations. """
+        requested_tomograms = self.get_private_tomograms()
+        return [tomo for tomo in requested_tomograms if tomo.has_annotation()]
+    
+    def get_unannotated_private_tomograms(self):
+        """ Get all private supercomputer tomograms that have no annotations. """
+        requested_tomograms = self.get_private_tomograms()
+        return [tomo for tomo in requested_tomograms if not tomo.has_annotation()]
 
 def get_fm_tomogram_set() -> SCTomogramSet:
     """
