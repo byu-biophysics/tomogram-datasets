@@ -81,22 +81,22 @@ class SCTomogramSet():
     def get_annotated_public_tomograms(self):
         """ Get all public supercomputer tomograms that have annotations. """
         requested_tomograms = self.get_public_tomograms()
-        return [tomo for tomo in requested_tomograms if tomo.has_annotation()]
+        return [tomo for tomo in requested_tomograms if tomo.is_annotated()]
     
     def get_unannotated_public_tomograms(self):
         """ Get all public supercomputer tomograms that have no annotations. """
         requested_tomograms = self.get_public_tomograms()
-        return [tomo for tomo in requested_tomograms if not tomo.has_annotation()]
+        return [tomo for tomo in requested_tomograms if not tomo.is_annotated()]
     
     def get_annotated_private_tomograms(self):
         """ Get all private supercomputer tomograms that have annotations. """
         requested_tomograms = self.get_private_tomograms()
-        return [tomo for tomo in requested_tomograms if tomo.has_annotation()]
+        return [tomo for tomo in requested_tomograms if tomo.is_annotated()]
     
     def get_unannotated_private_tomograms(self):
         """ Get all private supercomputer tomograms that have no annotations. """
         requested_tomograms = self.get_private_tomograms()
-        return [tomo for tomo in requested_tomograms if not tomo.has_annotation()]
+        return [tomo for tomo in requested_tomograms if not tomo.is_annotated()]
 
 def get_fm_tomogram_set() -> SCTomogramSet:
     """
