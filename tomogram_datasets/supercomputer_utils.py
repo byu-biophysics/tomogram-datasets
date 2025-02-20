@@ -365,7 +365,7 @@ def get_fm_tomogram_set() -> SCTomogramSet:
 
     # ~~~ NEGATIVES BRAXTON FOUND ON RANDY DATA ~~~ #
     root = f"/grphome/grp_tomo_db1_d3/nobackup/autodelete/negative_data"
-    these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in os.listdir(root)]
+    these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in os.listdir(root) if os.path.splitext(path) in ['.mrc', '.rec']]
     tomograms += these_tomograms
 
     print(f'Loading private negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
