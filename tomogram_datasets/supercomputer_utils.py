@@ -265,6 +265,12 @@ def get_fm_tomogram_set() -> SCTomogramSet:
 
     print(f'Loading public negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
     ### PUBLIC NEGATIVES ###
+    # ~~~ NEGATIVES BRAXTON FOUND ON RANDY DATA ~~~ #
+    root = f"/grphome/grp_tomo_db1_d3/nobackup/autodelete/negative_data"
+    print('Warning - not all of the "negatives" in /grphome/grp_tomo_db1_d3/nobackup/autodelete/negative_data are actually negatives. We need to remove those that aren\'t still.')
+    these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in os.listdir(root) if os.path.splitext(path)[1] in ['.mrc', '.rec']]
+    tomograms += these_tomograms
+    
     # ~~~ DRIVE 1 ~~~ #
     # Hylemonella
     root = f"/grphome/grp_tomo_db1_d1/nobackup/archive/TomoDB1_d1/FlagellarMotor_P1/Hylemonella gracilis"
@@ -362,11 +368,6 @@ def get_fm_tomogram_set() -> SCTomogramSet:
     for tomo in tomograms:
         tomogram_set.append(tomo, private=False)
     tomograms = []
-
-    # ~~~ NEGATIVES BRAXTON FOUND ON RANDY DATA ~~~ #
-    root = f"/grphome/grp_tomo_db1_d3/nobackup/autodelete/negative_data"
-    these_tomograms = [TomogramFile(os.path.join(root, path), load=False) for path in os.listdir(root) if os.path.splitext(path) in ['.mrc', '.rec']]
-    tomograms += these_tomograms
 
     print(f'Loading private negatives.\n\tCurrent number of tomograms: {len(tomogram_set.tomograms)}\n')
     ### PRIVATE NEGATIVES ###
